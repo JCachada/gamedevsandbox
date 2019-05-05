@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://PanelButton.gd" type="Script" id=1]
+
+[node name="Panel" type="Panel"]
+margin_right = 1020.0
+margin_bottom = 599.0
+script = ExtResource( 1 )
+
+[node name="Button" type="Button" parent="."]
+margin_left = 367.11
+margin_top = 212.923
+margin_right = 587.11
+margin_bottom = 376.923
+text = "Press me"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 396.425
+margin_top = 146.348
+margin_right = 561.425
+margin_bottom = 187.348
+text = "This is a label: "
+align = 1
+valign = 1
