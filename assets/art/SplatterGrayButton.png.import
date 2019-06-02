@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bouncy Platform Long.png-9b2628c180785c5ec622adb5c4ee7b17.stex"
+path="res://.import/SplatterGrayButton.png-66b24ead1b622105a7e285cd9a8d407f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Bouncy Platform Long.png"
-dest_files=[ "res://.import/Bouncy Platform Long.png-9b2628c180785c5ec622adb5c4ee7b17.stex" ]
+source_file="res://assets/art/SplatterGrayButton.png"
+dest_files=[ "res://.import/SplatterGrayButton.png-66b24ead1b622105a7e285cd9a8d407f.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

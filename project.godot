@@ -16,14 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Untitled Game"
-run/main_scene="res://DodgeCreeps/Main.tscn"
+run/main_scene="res://MainMenu.tscn"
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=480
-window/size/height=720
-
-[rendering]
-
-environment/default_environment="res://default_env.tres"
+window/size/width=1920
+window/size/height=1080
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
