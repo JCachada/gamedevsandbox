@@ -1,0 +1,49 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Entities/Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCIdle0.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCIdle1.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCIdle2.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCRun1.png" type="Texture" id=5]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCRun2.png" type="Texture" id=6]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCRun3.png" type="Texture" id=7]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCRun4.png" type="Texture" id=8]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCRun5.png" type="Texture" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "run",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 33.0271
+height = 20.5319
+
+[node name="Area2D" type="Area2D"]
+position = Vector2( 306.946, 193.418 )
+gravity_point = true
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 726.53, 457.63 )
+scale = Vector2( 3, 3 )
+frames = SubResource( 1 )
+animation = "run"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 733.043, 469.656 )
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
