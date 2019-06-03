@@ -1,19 +1,18 @@
-extends Area2D
+extends KinematicBody2D
 
 export var speed = 400  # How fast the player will move (pixels/sec).
 var screen_size
 
 func start(pos):
-    position = pos
-    show()
-    $CollisionShape2D.disabled = false
+	position = pos
+	show()
+	$CollisionShape2D.disabled = false
 
 func _ready():
 	$AnimatedSprite.play()
 	screen_size = get_viewport_rect().size
 
 func _process(delta):
-	screen_size = get_viewport_rect().size
 	var velocity = Vector2()  # The player's movement vector.
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
@@ -37,3 +36,6 @@ func _process(delta):
 		$AnimatedSprite.animation = "idle"
 	elif velocity.y != 0:
 		$AnimatedSprite.animation = "run"
+		
+func _physics_process(delta):
+	move_and_collide(Vector2(0, 0)) # Checks for collision in every direction every frame.
