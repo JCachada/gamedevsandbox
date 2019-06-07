@@ -13,3 +13,6 @@ func _ready():
 
 func _on_New_Game_pressed():
 	get_tree().change_scene("res://mapNodes/PLACEHOLDER_MapNode.tscn")
+
+func _on_Quit_pressed():
+	get_tree().quit()
