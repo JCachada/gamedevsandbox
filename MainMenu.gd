@@ -8,10 +8,8 @@ extends Control
 func _ready():
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+# Function that determines what happens when the new game button is pressed.
+# For now, just sends to a new start scene. This should be changed later (check github issue #4).
 
-
-func _on_newGame_clicked(meta):
+func _on_New_Game_pressed():
 	get_tree().change_scene("res://mapNodes/PLACEHOLDER_MapNode.tscn")

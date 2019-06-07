@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/SplatterGrayButton.png" type="Texture" id=2]
@@ -27,51 +27,42 @@ extra_spacing_char = 10
 font_data = SubResource( 3 )
 
 [sub_resource type="DynamicFontData" id=5]
-font_path = "res://assets/fonts/Silver.ttf"
-
-[sub_resource type="DynamicFont" id=6]
-size = 250
-outline_size = 20
-outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_char = 10
-font_data = SubResource( 5 )
-
-[sub_resource type="DynamicFontData" id=7]
 font_path = "res://assets/fonts/Xolonium-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=6]
 size = 20
 extra_spacing_char = 10
-font_data = SubResource( 7 )
+font_data = SubResource( 5 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 
-[node name="New Game" type="TextureRect" parent="."]
-margin_left = 120.0
-margin_top = 400.0
-margin_right = 2377.0
-margin_bottom = 858.0
+[node name="New Game" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -840.519
+margin_top = -674.777
+margin_right = 1425.48
+margin_bottom = -206.777
 rect_scale = Vector2( 0.3, 0.3 )
-size_flags_horizontal = 0
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 3
+icon = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="New Game"]
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -425.0
-margin_top = -104.5
-margin_right = 425.0
-margin_bottom = 104.5
+anchor_bottom = 1.0
+margin_left = -409.035
+margin_top = -344.811
+margin_right = 399.965
+margin_bottom = -40.8112
 custom_fonts/normal_font = SubResource( 2 )
 text = " New Game"
 __meta__ = {
@@ -98,7 +89,7 @@ margin_left = -469.5
 margin_top = -104.5
 margin_right = 469.5
 margin_bottom = 104.5
-custom_fonts/normal_font = SubResource( 4 )
+custom_fonts/normal_font = SubResource( 2 )
 text = " Load Game"
 __meta__ = {
 "_edit_lock_": true
@@ -124,7 +115,7 @@ margin_left = -233.5
 margin_top = -117.0
 margin_right = 233.5
 margin_bottom = 117.0
-custom_fonts/normal_font = SubResource( 6 )
+custom_fonts/normal_font = SubResource( 4 )
 text = " Quit"
 __meta__ = {
 "_edit_lock_": true
@@ -137,7 +128,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -148.0
 margin_top = -33.0
-custom_fonts/normal_font = SubResource( 8 )
+custom_fonts/normal_font = SubResource( 6 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 text = "v0.0.0"
 scroll_active = false
@@ -150,10 +141,13 @@ show_behind_parent = true
 position = Vector2( 960.085, 541.471 )
 scale = Vector2( 1.00101, 0.999481 )
 texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 autoplay = true
 script = ExtResource( 5 )
-[connection signal="meta_clicked" from="New Game/RichTextLabel" to="." method="_on_newGame_clicked"]
+[connection signal="pressed" from="New Game" to="." method="_on_New_Game_pressed"]
 [connection signal="finished" from="BackgroundMusic" to="BackgroundMusic" method="_on_BackgroundMusic_finished"]
