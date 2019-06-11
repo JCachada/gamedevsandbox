@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 var mobHealth = 100;
 var speed = 100;
