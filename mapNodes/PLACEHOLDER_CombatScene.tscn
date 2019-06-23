@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://mapNodes/PLACEHOLDER_CombatScene.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/MapNodes/PLACEHOLDER_CombatNode/PLACEHOLDER_Tileset.png" type="Texture" id=2]
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/mobs/TestMob.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/art/MapNodes/PLACEHOLDER_CombatNode/PLACEHOLDER_Pillar.png" type="Texture" id=5]
+[ext_resource path="res://GUI/CombatGUI.tscn" type="PackedScene" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -102,6 +103,7 @@ __meta__ = {
 }
 
 [node name="Navigation2D" type="Navigation2D" parent="."]
+visible = false
 __meta__ = {
 "_edit_lock_": true
 }
@@ -111,3 +113,7 @@ navpoly = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="CombatGUI" parent="." instance=ExtResource( 6 )]
+margin_right = 482.0
+margin_bottom = 117.0
