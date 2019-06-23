@@ -2,13 +2,16 @@ extends KinematicBody2D
 
 var mobHealth = 100;
 var speed = 200
-var velocity = Vector2()  # The mob's movement vector.
 onready var player = get_node('../Player')
 var screen_size
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+## These variables are used to handle the mob's movement. The navigation node is useful for handling obstacles.
+## The player node is also used for this.
+
+onready var navigation = get_node('../Navigation2D');
+var path = []
+var startPosition = Vector2();
+var endPosition = Vector2();
 
 func start(pos):
 	position = pos
@@ -27,34 +30,39 @@ func _on_StartupAnimation_animation_finished():
 	$ProperAnimation.play('idle')
 	
 func _process(delta):
+	# The start position for the pathfinding is the mob's current position.
+	# The goal position for the pathfinding is the player's current position.
 	
-	## This changes the movement of the mob. This mob simply chases the player around.
+	startPosition = position
+	endPosition = player.position
 	
-	if player.position.x > position.x:
-		velocity.x += speed
-	if player.position.x < position.x:
-		velocity.x -= speed
-	if player.position.y > position.y:
-		velocity.y += speed
-	if player.position.y < position.y:
-		velocity.y -= speed
-	
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * speed
-		position += velocity * delta
-		position.x = clamp(position.x, 0, screen_size.x)
-		position.y = clamp(position.y, 0, screen_size.y)
-	
-	## This changes the animation to match the movement.
-	
-	if velocity.x != 0:
-		$ProperAnimation.animation = "moving"
-		$ProperAnimation.flip_v = false
-		$ProperAnimation.flip_h = velocity.x > 0
-	elif velocity.x == 0 && velocity.y == 0:
-		$ProperAnimation.animation = "idle"
-	elif velocity.y != 0:
-		$ProperAnimation.animation = "moving"
+	_update_path()
+	if path.size() > 1:
+		var to_walk = delta * speed
+		while to_walk > 0 and path.size() >= 2:
+			var pfrom = path[path.size() - 1]
+			var pto = path[path.size() - 2]
+			var d = pfrom.distance_to(pto)
+			if d <= to_walk:
+				path.remove(path.size() - 1)
+				to_walk -= d
+			else:
+				path[path.size() - 1] = pfrom.linear_interpolate(pto, to_walk/d)
+				to_walk = 0
 		
-func _physics_process(delta):
-	move_and_collide(Vector2(0, 0))
+		var atpos = path[path.size() - 1]
+		position = atpos
+		
+		if path.size() < 2:
+			path = []
+			set_process(false)
+	else:
+		set_process(false)
+	
+## Calculates a new path using the available Navigation 2D node. The startPosition and endPosition are updated every frame on the process function.
+	
+func _update_path():
+	var p = navigation.get_simple_path(startPosition, endPosition, true)
+	path = Array(p) # PoolVector2Array too complex to use, convert to regular array
+	path.invert()
+	set_process(true)
