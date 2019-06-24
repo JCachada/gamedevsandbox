@@ -30,6 +30,9 @@ func _on_StartupAnimation_animation_finished():
 	$ProperAnimation.play('idle')
 	
 func _process(delta):
+	if mobHealth <= 0:
+		queue_free();
+		
 	# The start position for the pathfinding is the mob's current position.
 	# The goal position for the pathfinding is the player's current position.
 	
@@ -66,3 +69,6 @@ func _update_path():
 	path = Array(p) # PoolVector2Array too complex to use, convert to regular array
 	path.invert()
 	set_process(true)
+	
+func is_attacked(damage):
+	mobHealth = mobHealth - damage;
