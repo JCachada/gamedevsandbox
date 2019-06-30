@@ -4,6 +4,8 @@ var mobHealth = 100;
 var speed = 200
 onready var player = get_node('../Player')
 var screen_size
+var stopMoving = false;
+var GhostBullet = preload("res://entities/projectiles/GhostBullet.tscn")
 
 ## These variables are used to handle the mob's movement. The navigation node is useful for handling obstacles.
 ## The player node is also used for this.
@@ -32,13 +34,18 @@ func _on_StartupAnimation_animation_finished():
 func _process(delta):
 	if mobHealth <= 0:
 		queue_free();
-		
+	
+	if stopMoving: 
+		return;
 	# The start position for the pathfinding is the mob's current position.
 	# The goal position for the pathfinding is the player's current position.
 	
 	startPosition = position
 	endPosition = player.position
-	
+	if(player.position.x > position.x): 
+		$ProperAnimation.flip_h = true;
+	else:
+		$ProperAnimation.flip_h = false;
 	_update_path()
 	if path.size() > 1:
 		var to_walk = delta * speed
@@ -72,3 +79,19 @@ func _update_path():
 	
 func is_attacked(damage):
 	mobHealth = mobHealth - damage;
+
+## If the player is inside the FOV, stop moving and attack.
+	
+func _on_FOV_body_entered(body):
+	if(body == player):
+		stopMoving = true;
+		# "Muzzle" is a Position2D placed at the barrel of the gun.
+		var b = GhostBullet.instance()
+		b.start(position, player.position.x, player.position.y)
+		get_parent().add_child(b)
+	
+## If the player is outside the FOV, start chasing him.
+	
+func _on_FOV_body_exited(body):
+	if(body == player):
+		stopMoving = false;

@@ -9,23 +9,23 @@
 [ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCRun3.png" type="Texture" id=7]
 [ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCRun4.png" type="Texture" id=8]
 [ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCRun5.png" type="Texture" id=9]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack01.png" type="Texture" id=10]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack02.png" type="Texture" id=11]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack03.png" type="Texture" id=12]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack04.png" type="Texture" id=13]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack05.png" type="Texture" id=14]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_01.png" type="Texture" id=15]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_02.png" type="Texture" id=16]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_03.png" type="Texture" id=17]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_04.png" type="Texture" id=18]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_05.png" type="Texture" id=19]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_06.png" type="Texture" id=20]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo01.png" type="Texture" id=21]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo02.png" type="Texture" id=22]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo03.png" type="Texture" id=23]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo04.png" type="Texture" id=24]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo05.png" type="Texture" id=25]
-[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo06.png" type="Texture" id=26]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_01.png" type="Texture" id=10]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_02.png" type="Texture" id=11]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_03.png" type="Texture" id=12]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_04.png" type="Texture" id=13]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_05.png" type="Texture" id=14]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo2_06.png" type="Texture" id=15]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo01.png" type="Texture" id=16]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo02.png" type="Texture" id=17]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo03.png" type="Texture" id=18]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo04.png" type="Texture" id=19]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo05.png" type="Texture" id=20]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCCombo06.png" type="Texture" id=21]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack01.png" type="Texture" id=22]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack02.png" type="Texture" id=23]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack03.png" type="Texture" id=24]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack04.png" type="Texture" id=25]
+[ext_resource path="res://assets/art/Main Character/PLACEHOLDER_MCAttack05.png" type="Texture" id=26]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -40,25 +40,25 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
-"loop": false,
-"name": "attack",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
 "loop": false,
 "name": "combo2",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ) ],
+"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
 "loop": false,
 "name": "combo1",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "attack",
+"speed": 10.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 radius = 33.0271
 height = 20.5319
 
@@ -75,7 +75,7 @@ __meta__ = {
 
 [node name="AttackAnimation" type="AnimatedSprite" parent="."]
 scale = Vector2( 3, 3 )
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "combo2"
 frame = 2
 __meta__ = {
@@ -84,7 +84,7 @@ __meta__ = {
 
 [node name="IdleCollisionBox" type="CollisionShape2D" parent="."]
 position = Vector2( -2.53876, 6.90269 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }

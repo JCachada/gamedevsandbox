@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://entities/mobs/TestMob.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/Mobs/TestMob/PLACEHOLDER_IdleTestMob.png" type="Texture" id=2]
@@ -10,10 +10,6 @@
 [ext_resource path="res://assets/art/Mobs/TestMob/PLACEHOLDER_IdleTestMob8.png" type="Texture" id=8]
 [ext_resource path="res://assets/art/Mobs/TestMob/PLACEHOLDER_IdleTestMob9.png" type="Texture" id=9]
 [ext_resource path="res://assets/art/Mobs/TestMob/PLACEHOLDER_IdleTestMob10.png" type="Texture" id=10]
-[ext_resource path="res://assets/art/Mobs/TestMob/PLACEHOLDER_FlyingTestMob.png" type="Texture" id=11]
-[ext_resource path="res://assets/art/Mobs/TestMob/PLACEHOLDER_FlyingTestMob2.png" type="Texture" id=12]
-[ext_resource path="res://assets/art/Mobs/TestMob/PLACEHOLDER_FlyingTestMob3.png" type="Texture" id=13]
-[ext_resource path="res://assets/art/Mobs/TestMob/PLACEHOLDER_FlyingTestMob4.png" type="Texture" id=14]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -29,12 +25,10 @@ animations = [ {
 "loop": true,
 "name": "idle",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "moving",
-"speed": 5.0
 } ]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 263.84
 
 [node name="TestMob" type="KinematicBody2D"]
 position = Vector2( 160, 90 )
@@ -52,15 +46,25 @@ __meta__ = {
 [node name="ProperAnimation" type="AnimatedSprite" parent="."]
 scale = Vector2( 2, 2 )
 frames = SubResource( 2 )
-animation = "moving"
-frame = 1
+animation = "idle"
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 10, -10, 10, -30, 20, -40, 30, -40, 0, -50, -20, -40, -20, -20, -40, -10, -50, -10, -50, 0, -60, 0, -50, 10, -40, 10, -20, 0, -20, 20, 0, 30, 10, 40, 20, 40, 30, 40, 40, 30, 60, 30, 70, 20, 60, 20, 50, 20, 40, 10, 50, 0, 40, -10, 20, -20, 10, -30 )
+polygon = PoolVector2Array( -25.6312, 16.158, -26.6838, -0.684067, -37.2101, -6.99986, -34.0522, -12.263, -34.0522, -33.3157, -24.5785, -20.6841, -20.368, -12.263, -10.8943, -25.9473, -7.73642, -53.3157, 0.684601, -56.4736, 14.3689, -54.3683, 21.7373, -43.842, 21.7373, -36.4736, 14.3689, -44.8946, 25.9478, -21.7367, 32.2636, -2.78934, 31.211, 9.84225, 28.0531, 22.4738, 29.1057, 41.4212, 23.8426, 48.7896, 23.8426, 39.3159, 18.5794, 27.737, 18.5794, 39.3159, 12.2636, 39.3159, 7.0004, 53.0002, 2.78989, 48.7896, -1.42062, 48.7896, -15.1049, 26.6844, -18.2628, 30.8949 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="FOV" type="Area2D" parent="."]
+input_pickable = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FOV"]
+shape = SubResource( 3 )
 [connection signal="animation_finished" from="StartupAnimation" to="." method="_on_StartupAnimation_animation_finished"]
+[connection signal="body_entered" from="FOV" to="." method="_on_FOV_body_entered"]
+[connection signal="body_exited" from="FOV" to="." method="_on_FOV_body_exited"]
