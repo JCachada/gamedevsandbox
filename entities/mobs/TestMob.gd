@@ -87,7 +87,7 @@ func _on_FOV_body_entered(body):
 		stopMoving = true;
 		# "Muzzle" is a Position2D placed at the barrel of the gun.
 		var b = GhostBullet.instance()
-		b.start(position, player.position.x, player.position.y)
+		b.start(position, player);
 		get_parent().add_child(b)
 	
 ## If the player is outside the FOV, start chasing him.
