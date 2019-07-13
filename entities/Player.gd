@@ -3,10 +3,13 @@ extends KinematicBody2D
 export var speed = 400  # How fast the player will move (pixels/sec).
 var damagePerHit = 25; # Might be altered by variables in the code at runtime.
 var screen_size;
+var health = 100;
 var isAttacking; ## Tracks if the player is attacking.
 var isComboing = 0; ## Tracks if the player is comboing. 0 means "isn't comboing", 1 means "started comboing", 2 means "last combo stage."
 var canDamage = true;
 var velocity; # The player's movement vector.
+signal update_Healthbar;
+signal death;
 
 func start(pos):
 	position = pos
@@ -173,6 +176,32 @@ func _on_AttackAnimation_animation_finished():
 	## Restart the idle animation. 
 	
 	$IdleAnimation.show();
+	
+func get_shot(damage):
+	## This for makes the character flicker on getting shot. The number after i is the number of frames the character flickers for.
+	for i in 4:
+		self.modulate.a = 0.5;
+		yield(get_tree(), "idle_frame");
+		self.modulate.a = 1.0;
+		yield(get_tree(), "idle_frame");
+	health = health - damage;
+	emit_signal("update_Healthbar", health);
+	check_status();
 
 func _on_ComboTimer_timeout():
 	isComboing = 0;
+
+func check_status():
+	if (health <= 0):
+		die();
+	pass # Replace with function body.
+	
+func die():
+	## Turn off normal player behavior.
+	set_process(false);
+	set_physics_process(false);
+	## Die.
+	$AttackAnimation.hide();
+	$IdleAnimation.show();
+	$IdleAnimation.play("death");
+	emit_signal("death");

@@ -1,11 +1,12 @@
 extends KinematicBody2D
 
+signal shoot;
 var mobHealth = 100;
 var speed = 200
 onready var player = get_node('../Player')
 var screen_size
 var stopMoving = false;
-var GhostBullet = preload("res://entities/projectiles/GhostBullet.tscn")
+export (PackedScene) var bullet;
 
 ## These variables are used to handle the mob's movement. The navigation node is useful for handling obstacles.
 ## The player node is also used for this.
@@ -19,7 +20,10 @@ func start(pos):
 	position = pos
 	show()
 	$CollisionPolygon2D.disabled = false
-
+	
+func shoot():
+	call_deferred("emit_signal", "shoot", bullet, position)
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$ProperAnimation.hide()
@@ -86,9 +90,7 @@ func _on_FOV_body_entered(body):
 	if(body == player):
 		stopMoving = true;
 		# "Muzzle" is a Position2D placed at the barrel of the gun.
-		var b = GhostBullet.instance()
-		b.start(position, player);
-		get_parent().add_child(b)
+		shoot();
 	
 ## If the player is outside the FOV, start chasing him.
 	
