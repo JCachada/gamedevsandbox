@@ -1,0 +1,44 @@
+{
+    "url_key": "vjz9",
+    "title": "StoryTest",
+    "updated_at": "2019-07-14T05:58:00Z",
+    "created_at": "2019-07-14T05:34:57Z",
+    "data": {
+        "optionMirroring": true,
+        "initial": "chestDialogue",
+        "editorData": {
+            "authorName": "JCachada",
+            "textSize": 0,
+            "playPoint": "chestDialogue",
+            "libraryVisible": true
+        },
+        "chestInitial": {
+            "0": {
+                "content": [
+                    "It's a chest.",
+                    {
+                        "divert": "1"
+                    }
+                ],
+                "choices": "itemInitial"
+            },
+            "1": {
+                "content": [
+                    "Yup, definitely a chest.",
+                    {
+                        "divert": "2"
+                    }
+                ]
+            },
+            "2": {
+                "content": [
+                    "Look, I've told you it's a chest. What more do you want?",
+                    {
+                        "isEnd": true
+                    }
+                ]
+            },
+            "initial": "0"
+        }
+    }
+}

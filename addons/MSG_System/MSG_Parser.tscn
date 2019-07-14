@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/MSG_System/scripts/MSG_Parser.gd" type="Script" id=1]
+
+
+[node name="MSG_Parser" type="Node"]
+pause_mode = 2
+script = ExtResource( 1 )
+
+[node name="delay" type="Timer" parent="."]
+
+[node name="bbcode_parser" type="RichTextLabel" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+bbcode_enabled = true
+

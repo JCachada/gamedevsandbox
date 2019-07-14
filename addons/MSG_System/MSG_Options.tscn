@@ -1,0 +1,153 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "
+# PAUSE_MODE of its .tscn should be set to PROCESS
+
+extends ParallaxBackground
+
+onready var box_choices = $box_choices/choices
+onready var bubble_choices = $bubble_choices/choices
+
+func activate():
+	if MSG.is_box:
+		$box_choices/AnimationPlayer.play(\"show_hide\")
+	else:
+		$bubble_choices/AnimationPlayer.play(\"show_hide\")
+
+	yield(MSG.time(0.5), \"timeout\")
+	for x in $box_choices/choices.get_children():
+		x.can_be_pressed = true
+	for x in $bubble_choices/choices.get_children():
+		x.can_be_pressed = true
+
+func deactivate():
+	$box_choices.modulate = Color(1,1,1,0)
+	$bubble_choices.modulate = Color(1,1,1,0)
+
+func update():
+	pass
+
+func all_options_added():
+	if MSG.is_box:
+		box_choices.get_child(0).grab_focus()
+	else:
+		bubble_choices.get_child(0).grab_focus()
+
+func _on_Timer_timeout():
+	if MSG.is_box:
+		var f = 0
+		var count = box_choices.get_child_count()
+		for x in box_choices.get_children():
+			if !(x.has_focus()):
+				f += 1
+			else:
+				break
+
+		if f == count:
+			if box_choices.get_child(0):
+				box_choices.get_child(0).grab_focus()
+	else:
+		var f = 0
+		var count = bubble_choices.get_child_count()
+		for x in bubble_choices.get_children():
+			if !(x.has_focus()):
+				f += 1
+			else:
+				break
+
+		if f == count:
+			if bubble_choices.get_child(0):
+				bubble_choices.get_child(0).grab_focus()"
+
+[sub_resource type="Animation" id=2]
+resource_name = "show_hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "show_hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="MSG_Options" type="ParallaxBackground"]
+pause_mode = 2
+layer = 20
+script = SubResource( 1 )
+
+[node name="shadow" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.784314 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 140.0
+margin_top = -198.0
+margin_right = -128.0
+margin_bottom = -40.0
+mouse_filter = 2
+expand = true
+
+[node name="box_choices" type="ScrollContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -341.0
+margin_top = 32.0
+margin_right = 341.0
+margin_bottom = 208.0
+mouse_filter = 2
+scroll_horizontal_enabled = false
+
+[node name="choices" type="VBoxContainer" parent="box_choices"]
+margin_right = 670.0
+rect_min_size = Vector2( 670, 0 )
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="box_choices"]
+anims/show_hide = SubResource( 2 )
+
+[node name="bubble_choices" type="ScrollContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -312.0
+margin_top = -150.0
+margin_right = 368.0
+margin_bottom = -19.0
+scroll_horizontal_enabled = false
+
+[node name="choices" type="VBoxContainer" parent="bubble_choices"]
+margin_right = 670.0
+rect_min_size = Vector2( 670, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bubble_choices"]
+anims/show_hide = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

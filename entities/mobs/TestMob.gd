@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+# warning-ignore:unused_signal
 signal shoot;
 var mobHealth = 100;
 var speed = 200

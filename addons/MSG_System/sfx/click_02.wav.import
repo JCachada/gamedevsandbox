@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/click_02.wav-d60ee0f0f2cc4091751a1c1584e04fc6.sample"
+
+[deps]
+
+source_file="res://addons/MSG_System/sfx/click_02.wav"
+dest_files=[ "res://.import/click_02.wav-d60ee0f0f2cc4091751a1c1584e04fc6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

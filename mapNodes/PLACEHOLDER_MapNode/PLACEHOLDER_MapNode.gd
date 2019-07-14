@@ -6,4 +6,4 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Player.start($PlayerStartPosition.position)
+	$Player.start($PlayerStartPosition.position, false)

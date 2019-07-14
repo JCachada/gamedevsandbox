@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://mapNodes/PLACEHOLDER_CombatScene.gd" type="Script" id=1]
+[ext_resource path="res://mapNodes/PLACEHOLDER_CombatScene/PLACEHOLDER_CombatScene.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/MapNodes/PLACEHOLDER_CombatNode/PLACEHOLDER_Tileset.png" type="Texture" id=2]
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://entities/mobs/TestMob.tscn" type="PackedScene" id=4]

@@ -1,0 +1,45 @@
+{
+    "SceneName": "Scene1",
+    "eventTarget": {
+        "Door": {
+            "Start": {
+                "Name": "doorInitial",
+                "Flag": false
+            },
+            "Unlock" : {
+                "Name": "doorUnlocked",
+                "Flag": "haveInvitation"
+            }
+        },
+        "Professor": {
+            "Start": {
+                "Name": "storyTest",
+                "Flag": false
+            },
+            "Angry": {
+                "Name": "angryResponse",
+                "Flag": "checkedBrick"
+            },
+            "Repeat": {
+                "Name": "storyTestRepeat",
+                "Flag": false
+            }
+        },
+        "Invitation": {
+            "Start": {
+                "Name": "invitationGet",
+                "Flag": false
+            }
+        },
+        "Item": {
+            "Start": {
+                "Name": "itemInitial",
+                "Flag": false
+            },
+            "Repeat": {
+                "Name": "itemFound",
+                "Flag": false
+            }
+        }
+    }
+}

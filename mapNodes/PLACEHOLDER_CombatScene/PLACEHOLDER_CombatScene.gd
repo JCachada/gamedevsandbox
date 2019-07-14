@@ -6,7 +6,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Player.start($PlayerStartPosition.position)
+	$Player.start($PlayerStartPosition.position, true)
 	$Mob.start($PlayerStartPosition.position)
 	$CombatGUI.updateHealth(100);
 	$CombatGUI.updateStamina(100);

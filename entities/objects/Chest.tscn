@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://entities/objects/Chest.gd" type="Script" id=1]
+[ext_resource path="res://assets/art/Objects/PLACEHOLDER_Chest.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 37.9032, 36.7623 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 109.422, 93.5244 )
+
+[node name="Chest" type="StaticBody2D"]
+script = ExtResource( 1 )
+voice_pitch = 1.044
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2.92683, -3.34497 )
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="InteractionArea" type="Area2D" parent="."]
+editor/display_folded = true
+collision_layer = 32
+
+[node name="InteractableArea" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource( 2 )
+[connection signal="body_entered" from="InteractionArea" to="." method="_on_InteractionArea_body_entered"]
+[connection signal="body_exited" from="InteractionArea" to="." method="_on_InteractionArea_body_exited"]

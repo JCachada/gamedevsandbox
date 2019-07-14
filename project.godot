@@ -17,7 +17,15 @@ _global_script_class_icons={
 
 config/name="Untitled Game"
 run/main_scene="res://MainMenu.tscn"
-config/icon="res://icon.png"
+config/icon="res://assets/art/Temp_icon.png"
+
+[autoload]
+
+player_variables="*res://globalFiles/player_variables.gd"
+MSG="*res://addons/MSG_System/MSG_Parser.tscn"
+MSG_Options="*res://addons/MSG_System/MSG_Options.tscn"
+MSG_Bubble="*res://addons/MSG_System/MSG_Bubble.tscn"
+MSG_Box="*res://addons/MSG_System/MSG_Box.tscn"
 
 [display]
 
@@ -41,3 +49,4 @@ ui_leftClick={
 2d_physics/layer_3="Bullets"
 2d_physics/layer_4="Environment"
 2d_physics/layer_5="Fields of View"
+2d_physics/layer_6="Interaction"
