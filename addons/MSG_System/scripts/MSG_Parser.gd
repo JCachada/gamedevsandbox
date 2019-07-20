@@ -33,6 +33,7 @@ func var(var_name):
 # VARIABLES
 #signal message_started
 #signal message_ended
+signal dialogue_ended;
 const FINISH = 0
 const NEXT = 1
 var after_press = FINISH
@@ -88,14 +89,14 @@ func start_dialogue(json_path, interacted_object=null):
 		local_variables[json_path] = json_data[0]["variables"]
 #		printt("variables", json_data[0]["variables"])
 
-#	print(local_variables[json_path])
+	#print(local_variables[json_path])
 
 	can_continue = true
 	message_done = true
 #	find_start()
 	next = find_start().next
-#	print(next)
-#	next()
+	#print(next)
+	#next()
 	_auto_next()
 
 func next():
@@ -267,9 +268,7 @@ func update_text(text, any_choices):
 func end():
 	MSG_Bubble.hide()
 	MSG_Box.hide()
-
-	# you might want to change this in your game
-
+	emit_signal("dialogue_ended");
 
 ########################################################################################
 # CHOICES
@@ -329,18 +328,6 @@ func choice_made(idx):
 	next = id
 	can_continue = true
 	_auto_next()
-
-
-
-
-
-##########################################################################################################
-# I strongly recommend that you place this function on a different file with all the other input controllers
-
-func _input(event):
-	if Input.is_action_just_pressed(dialogue_next_input):
-		MSG.next()
-
 
 ##########################################################################################################
 # ADDITIONAL FUNCTIONS

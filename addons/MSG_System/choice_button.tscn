@@ -21,6 +21,5 @@ pitch_scale = 2.0
 [node name="sfx_select" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = -20.0
-
 [connection signal="button_down" from="." to="." method="_on_choice_b_button_down"]
 [connection signal="focus_entered" from="." to="." method="_on_choice_b_focus_entered"]

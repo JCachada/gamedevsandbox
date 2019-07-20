@@ -12,6 +12,7 @@ extents = Vector2( 109.422, 93.5244 )
 [node name="Chest" type="StaticBody2D"]
 script = ExtResource( 1 )
 voice_pitch = 1.044
+interaction_script = "res://entities/objects/TestChestDialogue.json"
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.3, 0.3 )

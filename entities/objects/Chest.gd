@@ -32,5 +32,4 @@ func _on_InteractionArea_body_exited(body):
 		player.interactable = null; 
 		
 func talk(): ## This function is used to talk to the chest. It's on standby until the dialogue .json generator is purchased.
-	pass;
-	##	MSG.start_dialogue(interaction_script, self);
+	MSG.start_dialogue(interaction_script, self);

@@ -11,6 +11,7 @@ var canDamage = true;
 var velocity; # The player's movement vector.
 var canMove = true; # The player can always move unless he's in dialogue / interaction.
 var canInteract = false; # This becomes true when the player goes within the zone of an interacteable object. These Area2D will be marked with "Interaction" labels.
+var canTalk = true; # This becomes false if the player is already in dialogue.
 var interactable; # This is the node with which the player can interact. It's often empty, but it gets assigned when the player walks in range of an interactable object.
 var inventory = [];
 signal update_Healthbar;
@@ -40,12 +41,15 @@ func _process(delta):
 		moveAndAttack(delta);
 
 func _input(event):
-	if (canInteract && event.is_action_pressed("ui_accept")):
+	if (canInteract && event.is_action_pressed("ui_accept") && canTalk):
 		canMove = false;
+		canTalk = false;
 		interactable.talk();
 		interactable.action(inventory);
 		if interactable.is_in_group("pickable"):
 			inventory.append(interactable.get_name());
+	elif event.is_action_pressed(("ui_accept")):
+		MSG.next()
 
 # warning-ignore:unused_argument
 func _physics_process(delta):
@@ -223,3 +227,7 @@ func die():
 	$IdleAnimation.show();
 	$IdleAnimation.play("death");
 	emit_signal("death");
+
+func on_dialogue_ended():
+	canMove = true;
+	canTalk = true;

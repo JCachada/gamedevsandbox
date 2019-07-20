@@ -97,6 +97,5 @@ percent_visible = 0.666667
 autoplay = "def"
 playback_speed = 0.4
 anims/def = SubResource( 3 )
-
 [connection signal="timeout" from="characters_timer" to="." method="_on_characters_timer_timeout"]
 [connection signal="timeout" from="SFX_Timer" to="." method="_on_SFX_Timer_timeout"]
