@@ -382,5 +382,5 @@ func parse_bbcode(text):
 
 func is_legacy():
 	if json_data[0].has("editor_version"):
-		return false
+		return false;
 	return true

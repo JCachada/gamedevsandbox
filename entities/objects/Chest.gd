@@ -33,3 +33,6 @@ func _on_InteractionArea_body_exited(body):
 		
 func talk(): ## This function is used to talk to the chest. It's on standby until the dialogue .json generator is purchased.
 	MSG.start_dialogue(interaction_script, self);
+	
+func setKicked():
+	player_variables.kickedChest = true;
