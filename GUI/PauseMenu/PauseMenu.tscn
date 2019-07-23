@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://GUI/PauseMenu/PauseMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/art/GUI/PauseMenu/PLACEHOLDER_SaveGame.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/GUI/PauseMenu/PLACEHOLDER_QuitGame.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/Silver.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_char = 1
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="PauseMenu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="Save Game" type="TextureButton" parent="."]
+margin_left = 726.607
+margin_top = 373.383
+margin_right = 2980.61
+margin_bottom = 835.383
+rect_scale = Vector2( 0.2, 0.2 )
+texture_normal = ExtResource( 2 )
+
+[node name="Quit Game" type="TextureButton" parent="."]
+margin_left = 726.607
+margin_top = 497.495
+margin_right = 2980.61
+margin_bottom = 959.495
+rect_scale = Vector2( 0.2, 0.2 )
+texture_normal = ExtResource( 3 )
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+visible = true
+margin_left = 804.212
+margin_top = 449.641
+margin_right = 1101.21
+margin_bottom = 540.641
+theme = SubResource( 2 )
+popup_exclusive = true
+window_title = "Quit"
+dialog_text = "Are you sure you want to quit?"
+[connection signal="pressed" from="Quit Game" to="." method="_on_Quit_Game_pressed"]
+[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
+[connection signal="custom_action" from="ConfirmationDialog" to="." method="_on_ConfirmationDialog_custom_action"]
