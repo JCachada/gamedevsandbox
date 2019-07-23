@@ -8,3 +8,4 @@ extends Node2D
 func _ready():
 	MSG.connect("dialogue_ended", $Player, "on_dialogue_ended");
 	$Player.start($PlayerStartPosition.position, false)
+	player_variables.currentScene = "res://mapNodes/PLACEHOLDER_MapNode/PLACEHOLDER_MapNode.tscn";

@@ -10,41 +10,40 @@ var kickedChest = false;
 var counter = 0;
 
 func save(fileName):
-	# Get a screenshot to go with the saved game.
-	get_viewport().queue_screen_capture()
-	yield(get_tree(), "idle_frame")
-	yield(get_tree(), "idle_frame")
-	var capture = get_viewport().get_screen_capture();
 	## Create the dictionary with the data we want to save.
 	var save_dictionary = {
 		"fileName": fileName,
-		"filePath": "user://savegame" + counter + ".save",
-		"screenshot": capture,
+		"filePath": "user://savegame" + counter as String + ".save",
 		"currentScene": currentScene,
 		"kickedChest": kickedChest,
 		"playerHealth": playerHealth
 	}
 	## Write the data to a file.
 	var saved_game = File.new();
-	saved_game.open("user://savegame" + counter + ".save", File.WRITE);
+	saved_game.open("user://savegame" + counter as String+ ".save", File.WRITE);
 	saved_game.store_line(to_json(save_dictionary));
 	saved_game.close();
 	counter = counter + 1;
+	print(OS.get_user_data_dir()); # Debug line to navigate to the folder with file explorer.
 
 func load(filePath):
-	## If there are no saved games, emit a warning signal and do nothing.
-	if !saves_Exist(): 
-		return false;
+	var counter = 0;
+	var loaded = false;
 	## Try to open the saved game we selected. TODO Needs a way to handle failure.
 	var saved_game = File.new();
 	saved_game.open(filePath, File.READ);
 	## Load all the variables into this singleton.
-	while not saved_game.eof_reached():
+	while not loaded:
 		var currentLine = parse_json(saved_game.get_line());
-		for i in currentLine.keys():
-			player_variables.set(i, currentLine.i);
+		var keys = currentLine.keys();
+		var values = currentLine.values(); 
+		for key in keys:
+			player_variables.set(keys[counter], values[counter]);
+			counter = counter+1;
+		loaded = true;
 	## Data loaded successfully.
-	return true;
+	get_tree().change_scene(currentScene);
+	return;
 
 func saves_Exist():
 	## Navigate to the save file directory.
@@ -61,10 +60,26 @@ func saves_Exist():
 		## If there are files, look for files with the .save extension.
 		while true:
 			var file = directory.get_next();
-			if file.get_extension() == ".save":
+			if file.ends_with(".save"):
 				return true;
 			if file == "":
 				break;
 		## If there are no files with a .save extension, there are no saved games.
 		directory.list_dir_end();
 		return false;
+
+func get_All_Saves():
+	var files = [];
+	## Navigate to the save file directory.
+	var directory = Directory.new();
+	var userDir = directory.open("user://");
+	var dirFiles = directory.list_dir_begin();
+	# If it's a save file, append it. Ignore hidden files.
+	while true:
+			var file = directory.get_next();
+			if file == "":
+				break;
+			elif not file.begins_with(".") && file.ends_with(".save"):
+				files.append(file);
+	directory.list_dir_end();
+	return files;
