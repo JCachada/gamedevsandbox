@@ -54,6 +54,12 @@ func _on_Load_Game_pressed():
 		$"No Saves Feedback/Hide Feedback No Saves".start();
 
 func _on_GetSaveName_text_entered(new_text):
+	## Don't allow player to manually save autosaves.
+	
+	if(new_text == "autosavegame"):
+		$SaveName.text = "That name is used for autosaves. Please try again."
+		return;
+		
 	## Handle repeated saves.
 	
 	var saves = player_variables.get_All_Saves();
