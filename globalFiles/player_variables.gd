@@ -20,9 +20,14 @@ func save(fileName):
 	}
 	## Write the data to a file.
 	var saved_game = File.new();
-	saved_game.open("user://savegame" + counter as String+ ".save", File.WRITE);
-	saved_game.store_line(to_json(save_dictionary));
-	saved_game.close();
+	if fileName.begins_with("autosavegame"):
+		saved_game.open("user://autosavegame" + counter as String+ ".save", File.WRITE);
+		saved_game.store_line(to_json(save_dictionary));
+		saved_game.close();
+	else:
+		saved_game.open("user://" + fileName + ".save", File.WRITE);
+		saved_game.store_line(to_json(save_dictionary));
+		saved_game.close();
 	counter = counter + 1;
 	print(OS.get_user_data_dir()); # Debug line to navigate to the folder with file explorer.
 

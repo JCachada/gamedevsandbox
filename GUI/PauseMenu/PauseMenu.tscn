@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://GUI/PauseMenu/PauseMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/GUI/PauseMenu/PLACEHOLDER_SaveGame.png" type="Texture" id=2]
@@ -15,6 +15,12 @@ font_data = ExtResource( 5 )
 
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 28
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 5 )
 
 [node name="PauseMenu" type="Control"]
 pause_mode = 2
@@ -37,27 +43,72 @@ margin_right = 2980.61
 margin_bottom = 1002.8
 rect_scale = Vector2( 0.2, 0.2 )
 texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Quit Game" type="TextureButton" parent="."]
+editor/display_folded = true
 margin_left = 726.607
 margin_top = 697.495
 margin_right = 2980.61
 margin_bottom = 1159.49
 rect_scale = Vector2( 0.2, 0.2 )
 texture_normal = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+[node name="QuitConfirmation" type="ConfirmationDialog" parent="Quit Game"]
 visible = true
-margin_left = 804.212
-margin_top = 449.641
-margin_right = 1101.21
-margin_bottom = 540.641
+margin_left = 866.066
+margin_top = -797.0
+margin_right = 1378.07
+margin_bottom = -658.0
 theme = SubResource( 2 )
 popup_exclusive = true
 window_title = "Quit"
 dialog_text = "Are you sure you want to quit?"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="SaveName" type="LineEdit" parent="."]
+editor/display_folded = true
+margin_left = 808.381
+margin_top = 526.165
+margin_right = 1096.38
+margin_bottom = 562.165
+text = "What do you want to call your saved game?"
+
+[node name="SaveConfirmation" type="ConfirmationDialog" parent="SaveName"]
+visible = true
+margin_left = 52.8494
+margin_top = -3.27515
+margin_right = 252.849
+margin_bottom = 66.7249
+window_title = "Duplicate save"
+dialog_text = "A saved game with that name already exists.
+Do you want to overwrite?"
+
+[node name="Game Saved Feedback" type="RichTextLabel" parent="."]
+margin_left = 13.6842
+margin_top = 10.5263
+margin_right = 404.684
+margin_bottom = 78.5263
+custom_fonts/normal_font = SubResource( 3 )
+text = "Your game was saved successfully."
+
+[node name="Hide Feedback" type="Timer" parent="Game Saved Feedback"]
+wait_time = 5.0
+one_shot = true
+[connection signal="game_saved" from="." to="." method="_on_PauseMenu_game_saved"]
 [connection signal="pressed" from="Save Game" to="." method="_on_Save_Game_pressed"]
 [connection signal="pressed" from="Load Game" to="." method="_on_Load_Game_pressed"]
 [connection signal="pressed" from="Quit Game" to="." method="_on_Quit_Game_pressed"]
-[connection signal="confirmed" from="ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
-[connection signal="popup_hide" from="ConfirmationDialog" to="." method="_on_ConfirmationDialog_popup_hide"]
+[connection signal="confirmed" from="Quit Game/QuitConfirmation" to="." method="_on_ConfirmationDialog_confirmed"]
+[connection signal="popup_hide" from="Quit Game/QuitConfirmation" to="." method="_on_ConfirmationDialog_popup_hide"]
+[connection signal="text_entered" from="SaveName" to="." method="_on_GetSaveName_text_entered"]
+[connection signal="confirmed" from="SaveName/SaveConfirmation" to="." method="_on_SaveConfirmation_confirmed"]
+[connection signal="popup_hide" from="SaveName/SaveConfirmation" to="." method="_on_SaveConfirmation_popup_hide"]
+[connection signal="timeout" from="Game Saved Feedback/Hide Feedback" to="." method="_on_Hide_Feedback_timeout"]
