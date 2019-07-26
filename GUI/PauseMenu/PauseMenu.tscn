@@ -92,6 +92,7 @@ dialog_text = "A saved game with that name already exists.
 Do you want to overwrite?"
 
 [node name="Game Saved Feedback" type="RichTextLabel" parent="."]
+visible = false
 margin_left = 13.6842
 margin_top = 10.5263
 margin_right = 404.684
@@ -100,6 +101,19 @@ custom_fonts/normal_font = SubResource( 3 )
 text = "Your game was saved successfully."
 
 [node name="Hide Feedback" type="Timer" parent="Game Saved Feedback"]
+wait_time = 5.0
+one_shot = true
+
+[node name="No Saves Feedback" type="RichTextLabel" parent="."]
+margin_left = 13.6842
+margin_top = 10.5263
+margin_right = 404.684
+margin_bottom = 78.5263
+custom_fonts/normal_font = SubResource( 3 )
+text = "There are no saved games you can load.
+Save the game then try again."
+
+[node name="Hide Feedback No Saves" type="Timer" parent="No Saves Feedback"]
 wait_time = 5.0
 one_shot = true
 [connection signal="game_saved" from="." to="." method="_on_PauseMenu_game_saved"]
@@ -112,3 +126,4 @@ one_shot = true
 [connection signal="confirmed" from="SaveName/SaveConfirmation" to="." method="_on_SaveConfirmation_confirmed"]
 [connection signal="popup_hide" from="SaveName/SaveConfirmation" to="." method="_on_SaveConfirmation_popup_hide"]
 [connection signal="timeout" from="Game Saved Feedback/Hide Feedback" to="." method="_on_Hide_Feedback_timeout"]
+[connection signal="timeout" from="No Saves Feedback/Hide Feedback No Saves" to="." method="_on_Hide_Feedback_No_Saves_timeout"]

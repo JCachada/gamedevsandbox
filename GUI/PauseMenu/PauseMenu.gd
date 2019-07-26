@@ -10,6 +10,7 @@ var tempSaveName; # This variable exists to send the saved game from the main fu
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$"Game Saved Feedback".hide();
+	$"No Saves Feedback".hide();
 	$SaveName.hide();
 	self.hide();
 	isActive = false;
@@ -45,8 +46,12 @@ func _on_ConfirmationDialog_popup_hide():
 
 
 func _on_Load_Game_pressed():
-	get_tree().paused = false;
-	get_tree().change_scene("res://GUI/Load Menu/Load Menu.tscn");
+	if player_variables.saves_Exist():
+		get_tree().paused = false;
+		get_tree().change_scene("res://GUI/Load Menu/Load Menu.tscn");
+	elif !player_variables.saves_Exist():
+		$"No Saves Feedback".show();
+		$"No Saves Feedback/Hide Feedback No Saves".start();
 
 func _on_GetSaveName_text_entered(new_text):
 	## Handle repeated saves.
@@ -79,3 +84,6 @@ func _on_PauseMenu_game_saved():
 
 func _on_Hide_Feedback_timeout():
 	$"Game Saved Feedback".hide();
+
+func _on_Hide_Feedback_No_Saves_timeout():
+	$"No Saves Feedback".hide();
