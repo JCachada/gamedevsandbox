@@ -70,7 +70,7 @@ func moveAndAttack(delta):
 
 	## ATTACK 1
 
-	if (Input.is_action_just_pressed("ui_leftClick") && (isComboing == 0)):
+	if (Input.is_action_just_pressed("ui_leftClick") && (isComboing == 0) && inCombatScene):
 		## Start the timer that counts the combo window.
 		$ComboTimer.start();
 		isAttacking = true;
@@ -96,7 +96,7 @@ func moveAndAttack(delta):
 
 	## COMBO 1
 
-	if (Input.is_action_just_pressed("ui_leftClick") && (isComboing == 1)):
+	if (Input.is_action_just_pressed("ui_leftClick") && (isComboing == 1) && inCombatScene):
 		## Restart the timer that counts the combo window.
 		$ComboTimer.start();
 		isAttacking = true;
@@ -121,7 +121,7 @@ func moveAndAttack(delta):
 
 	## COMBO 2
 
-	if (Input.is_action_just_pressed("ui_leftClick") && (isComboing == 2)):
+	if (Input.is_action_just_pressed("ui_leftClick") && (isComboing == 2) && inCombatScene):
 		## Restart the timer that counts the combo window.
 		$ComboTimer.emit_signal("timeout");
 		isAttacking = true;
@@ -153,15 +153,15 @@ func moveAndAttack(delta):
 			velocity.x -= 1
 		if Input.is_action_pressed("ui_down"):
 			velocity.y += 1
-		if Input.is_action_pressed("ui_up") && inCombatScene == true:
+		if Input.is_action_pressed("ui_up"):
 			velocity.y -= 1
 		if velocity.length() > 0:
 			velocity = velocity.normalized() * speed
 			if(isAttacking == false):
 				$IdleAnimation.play()
 		position += velocity * delta
-		position.x = clamp(position.x, 0, screen_size.x)
-		position.y = clamp(position.y, 0, screen_size.y)
+		#position.x = clamp(position.x, 0, screen_size.x) This clamping conflicts with parallax backgrounds. For now, will use collision boxes to stop player from leaving screen.
+		#position.y = clamp(position.y, 0, screen_size.y)
 		if velocity.x != 0 && isAttacking == false:
 			$IdleAnimation.animation = "run"
 			$IdleAnimation.flip_v = false
