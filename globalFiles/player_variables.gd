@@ -16,6 +16,7 @@ func save(fileName):
 		"currentScene": currentScene,
 		"kickedChest": kickedChest,
 		"playerHealth": playerHealth
+		## Story / Scene Events Artifacts
 	}
 	## Write the data to a file.
 	var saved_game = File.new();

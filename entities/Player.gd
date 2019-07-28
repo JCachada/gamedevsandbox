@@ -41,11 +41,12 @@ func _process(delta):
 		moveAndAttack(delta);
 
 func _input(event):
-	if (canInteract && event.is_action_pressed("ui_accept") && canTalk):
+	if (canInteract && event.is_action_pressed("ui_select") && canTalk):
 		canMove = false;
 		canTalk = false;
 		interactable.talk();
-		interactable.action(inventory);
+		if (interactable.has_method("action")):
+			interactable.action(inventory);
 		if interactable.is_in_group("pickable"):
 			inventory.append(interactable.get_name());
 	elif event.is_action_pressed(("ui_accept")):

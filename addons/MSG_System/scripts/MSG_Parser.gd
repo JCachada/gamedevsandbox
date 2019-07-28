@@ -117,7 +117,7 @@ func next():
 								is_box = this.is_box
 
 							if this.speaker_type == 0:
-								current_speaker = level_root().get_node("main").get_node(this.character[0])
+								current_speaker = level_root().get_node(this.character[0])
 							elif this.speaker_type == 1:
 								current_speaker = evaluate(this.object_path)
 							else:
