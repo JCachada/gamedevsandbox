@@ -10,6 +10,7 @@ func _ready():
 	player_variables.currentScene = "res://mapNodes/Node_00_Tutorial/Node00_Tutorial_Start.tscn";
 	$TalkPromptArea/TalkPromptSprite.hide();
 	$MovementPromptArea.hide();
+	$PlayerHome/EnterHouseArea/TalkPrompt.hide();
 	$Player.start($PlayerStartPosition.position, false);
 	$AnimationPlayer.play("Fade In");
 
@@ -34,4 +35,18 @@ func _on_TalkPromptArea_body_entered(body):
 func _on_TalkPromptArea_body_exited(body):
 	if(body == $Player):
 		$Player.canInteract = false;
+		$Player.interactable = null;
 		$TalkPromptArea/TalkPromptSprite.hide();
+
+func _on_EnterHouseArea_body_entered(body):
+	if(body == $Player):
+		$Player.canInteract = true;
+		$Player.interactable = $PlayerHome;
+		$PlayerHome/EnterHouseArea/TalkPrompt.show();
+
+
+func _on_EnterHouseArea_body_exited(body):
+	if(body == $Player):
+		$Player.canInteract = false;
+		$Player.interactable = null;
+		$PlayerHome/EnterHouseArea/TalkPrompt.hide();

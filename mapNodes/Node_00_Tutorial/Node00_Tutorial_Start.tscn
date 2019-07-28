@@ -1,17 +1,23 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://mapNodes/Node_00_Tutorial/Node00_Tutorial_Start.gd" type="Script" id=1]
-[ext_resource path="res://entities/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_TutorialBackground_Clouds.png" type="Texture" id=3]
-[ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_TutorialBackground_Trees.png" type="Texture" id=4]
-[ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_TutorialBackground_Grass.png" type="Texture" id=5]
-[ext_resource path="res://assets/art/GUI/ButtonPrompts/MovementPrompt.png" type="Texture" id=6]
-[ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle00.png" type="Texture" id=7]
-[ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle01.png" type="Texture" id=8]
-[ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle02.png" type="Texture" id=9]
-[ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle03.png" type="Texture" id=10]
-[ext_resource path="res://mapNodes/Node_00_Tutorial/KnightSprite.gd" type="Script" id=11]
-[ext_resource path="res://assets/art/GUI/ButtonPrompts/TalkPrompt.png" type="Texture" id=12]
+[ext_resource path="res://assets/art/Buildings/PLACEHOLDER_PlayerHome.png" type="Texture" id=2]
+[ext_resource path="res://mapNodes/Node_00_Tutorial/PlayerHome.gd" type="Script" id=3]
+[ext_resource path="res://assets/art/GUI/ButtonPrompts/TalkPrompt.png" type="Texture" id=4]
+[ext_resource path="res://entities/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_TutorialBackground_Clouds.png" type="Texture" id=6]
+[ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_TutorialBackground_Trees.png" type="Texture" id=7]
+[ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_TutorialBackground_Grass.png" type="Texture" id=8]
+[ext_resource path="res://assets/art/GUI/ButtonPrompts/MovementPrompt.png" type="Texture" id=9]
+[ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle00.png" type="Texture" id=10]
+[ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle01.png" type="Texture" id=11]
+[ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle02.png" type="Texture" id=12]
+[ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle03.png" type="Texture" id=13]
+[ext_resource path="res://mapNodes/Node_00_Tutorial/KnightSprite.gd" type="Script" id=14]
+
+[sub_resource type="CapsuleShape2D" id=9]
+radius = 60.0
+height = 0.0
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10000, 40 )
@@ -21,6 +27,9 @@ extents = Vector2( 20, 130 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 10030, 40 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 40, 580 )
 
 [sub_resource type="Animation" id=4]
 resource_name = "Fade In"
@@ -79,7 +88,7 @@ radius = 222.036
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -93,8 +102,28 @@ radius = 160.312
 ]]
 script = ExtResource( 1 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="PlayerHome" type="Sprite" parent="."]
 editor/display_folded = true
+position = Vector2( 3960, 800 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="EnterHouseArea" type="Area2D" parent="PlayerHome"]
+editor/display_folded = true
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHome/EnterHouseArea"]
+position = Vector2( -70, 150 )
+shape = SubResource( 9 )
+
+[node name="TalkPrompt" type="Sprite" parent="PlayerHome/EnterHouseArea"]
+visible = false
+position = Vector2( -70, -10 )
+texture = ExtResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+editor/display_folded = true
+visible = false
 position = Vector2( 270, 930 )
 
 [node name="Camera2D2" type="Camera2D" parent="Player"]
@@ -122,7 +151,7 @@ __meta__ = {
 
 [node name="CloudsSprite" type="Sprite" parent="Background/Clouds"]
 position = Vector2( 960, 540 )
-texture = ExtResource( 3 )
+texture = ExtResource( 6 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 1920, 1080 )
 __meta__ = {
@@ -135,7 +164,7 @@ motion_mirroring = Vector2( 1920, 0 )
 
 [node name="TreesSprite" type="Sprite" parent="Background/Trees"]
 position = Vector2( 960, 540 )
-texture = ExtResource( 4 )
+texture = ExtResource( 7 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 1920, 1080 )
 __meta__ = {
@@ -150,7 +179,7 @@ __meta__ = {
 
 [node name="GrassSprite" type="Sprite" parent="Background/Grass"]
 position = Vector2( 960, 540 )
-texture = ExtResource( 5 )
+texture = ExtResource( 8 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 1920, 1080 )
 __meta__ = {
@@ -215,6 +244,20 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="RightMapLimit" type="StaticBody2D" parent="."]
+editor/display_folded = true
+visible = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightMapLimit"]
+position = Vector2( 20040, 510 )
+shape = SubResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Fade In" = SubResource( 4 )
 
@@ -225,12 +268,13 @@ position = Vector2( 270, 820 )
 collision_layer = 16
 
 [node name="MovementPrompt" type="Sprite" parent="MovementPromptArea"]
-texture = ExtResource( 6 )
+texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPromptArea"]
 shape = SubResource( 5 )
 
 [node name="TalkPromptArea" type="Area2D" parent="."]
+editor/display_folded = true
 position = Vector2( 2850, 830 )
 collision_layer = 32
 
@@ -240,7 +284,7 @@ scale = Vector2( -0.15, 0.15 )
 frames = SubResource( 6 )
 frame = 2
 playing = true
-script = ExtResource( 11 )
+script = ExtResource( 14 )
 interaction_script = "res://mapNodes/Node_00_Tutorial/TutorialKnightDialogue.json"
 
 [node name="TalkPrompt" type="CollisionShape2D" parent="TalkPromptArea"]
@@ -249,7 +293,9 @@ shape = SubResource( 7 )
 
 [node name="TalkPromptSprite" type="Sprite" parent="TalkPromptArea"]
 position = Vector2( -710, -80 )
-texture = ExtResource( 12 )
+texture = ExtResource( 4 )
+[connection signal="body_entered" from="PlayerHome/EnterHouseArea" to="." method="_on_EnterHouseArea_body_entered"]
+[connection signal="body_exited" from="PlayerHome/EnterHouseArea" to="." method="_on_EnterHouseArea_body_exited"]
 [connection signal="body_entered" from="MovementPromptArea" to="." method="_on_MovementPromptArea_body_entered"]
 [connection signal="body_exited" from="MovementPromptArea" to="." method="_on_MovementPromptArea_body_exited"]
 [connection signal="body_entered" from="TalkPromptArea" to="." method="_on_TalkPromptArea_body_entered"]
