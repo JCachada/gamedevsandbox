@@ -232,3 +232,7 @@ func die():
 func on_dialogue_ended():
 	canMove = true;
 	canTalk = true;
+
+func _on_interaction_ended():
+	canMove = true;
+	canTalk = true;

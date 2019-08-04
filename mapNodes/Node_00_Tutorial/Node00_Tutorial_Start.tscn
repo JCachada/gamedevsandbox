@@ -15,24 +15,23 @@
 [ext_resource path="res://assets/art/Characters/Knight/PLACEHOLDER_Knight_Idle03.png" type="Texture" id=13]
 [ext_resource path="res://mapNodes/Node_00_Tutorial/KnightSprite.gd" type="Script" id=14]
 
-[sub_resource type="CapsuleShape2D" id=9]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 60.0
 height = 0.0
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10000, 40 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 20, 130 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 10030, 40 )
 
-[sub_resource type="RectangleShape2D" id=8]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 40, 580 )
 
-[sub_resource type="Animation" id=4]
-resource_name = "Fade In"
+[sub_resource type="Animation" id=6]
 length = 5.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -83,10 +82,10 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=7]
 radius = 222.036
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
 "loop": true,
@@ -94,7 +93,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=7]
+[sub_resource type="CircleShape2D" id=9]
 radius = 160.312
 
 [node name="Node00_Tutorial_Start" type="Node2D" groups=[
@@ -114,7 +113,7 @@ collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHome/EnterHouseArea"]
 position = Vector2( -70, 150 )
-shape = SubResource( 9 )
+shape = SubResource( 1 )
 
 [node name="TalkPrompt" type="Sprite" parent="PlayerHome/EnterHouseArea"]
 visible = false
@@ -205,7 +204,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottomMapLimit"]
 position = Vector2( 9070, 470 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -222,7 +221,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftMapLimit"]
 position = Vector2( -950, 380 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -239,7 +238,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopMapLimit"]
 position = Vector2( 9090, 100 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -253,13 +252,13 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightMapLimit"]
 position = Vector2( 20040, 510 )
-shape = SubResource( 8 )
+shape = SubResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-"anims/Fade In" = SubResource( 4 )
+"anims/Fade In" = SubResource( 6 )
 
 [node name="MovementPromptArea" type="Area2D" parent="."]
 editor/display_folded = true
@@ -271,7 +270,7 @@ collision_layer = 16
 texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MovementPromptArea"]
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 
 [node name="TalkPromptArea" type="Area2D" parent="."]
 editor/display_folded = true
@@ -281,7 +280,7 @@ collision_layer = 32
 [node name="KnightSprite" type="AnimatedSprite" parent="TalkPromptArea"]
 position = Vector2( -710, 50 )
 scale = Vector2( -0.15, 0.15 )
-frames = SubResource( 6 )
+frames = SubResource( 8 )
 frame = 2
 playing = true
 script = ExtResource( 14 )
@@ -289,11 +288,12 @@ interaction_script = "res://mapNodes/Node_00_Tutorial/TutorialKnightDialogue.jso
 
 [node name="TalkPrompt" type="CollisionShape2D" parent="TalkPromptArea"]
 position = Vector2( -710, 30 )
-shape = SubResource( 7 )
+shape = SubResource( 9 )
 
 [node name="TalkPromptSprite" type="Sprite" parent="TalkPromptArea"]
 position = Vector2( -710, -80 )
 texture = ExtResource( 4 )
+[connection signal="interaction_ended" from="PlayerHome" to="Player" method="_on_interaction_ended"]
 [connection signal="body_entered" from="PlayerHome/EnterHouseArea" to="." method="_on_EnterHouseArea_body_entered"]
 [connection signal="body_exited" from="PlayerHome/EnterHouseArea" to="." method="_on_EnterHouseArea_body_exited"]
 [connection signal="body_entered" from="MovementPromptArea" to="." method="_on_MovementPromptArea_body_entered"]

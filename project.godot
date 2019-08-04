@@ -95,3 +95,7 @@ ui_leftClick={
 2d_physics/layer_4="Environment"
 2d_physics/layer_5="Fields of View"
 2d_physics/layer_6="Interaction"
+
+[rendering]
+
+quality/2d/use_pixel_snap=true
