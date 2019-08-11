@@ -115,7 +115,6 @@ func next():
 						"show_message":
 							if ! override_is_box:
 								is_box = this.is_box
-
 							if this.speaker_type == 0:
 								current_speaker = level_root().get_node(this.character[0])
 							elif this.speaker_type == 1:

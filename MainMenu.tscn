@@ -148,5 +148,6 @@ stream = ExtResource( 4 )
 autoplay = true
 script = ExtResource( 5 )
 [connection signal="pressed" from="New Game" to="." method="_on_New_Game_pressed"]
+[connection signal="pressed" from="Load Game" to="." method="_on_Load_Game_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
 [connection signal="finished" from="BackgroundMusic" to="BackgroundMusic" method="_on_BackgroundMusic_finished"]

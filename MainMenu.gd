@@ -24,7 +24,10 @@ func _init():
 # For now, just sends to a new start scene. This should be changed later (check github issue #4).
 
 func _on_New_Game_pressed():
-	get_tree().change_scene("res://mapNodes/PLACEHOLDER_MapNode.tscn")
+	get_tree().change_scene("res://mapNodes/Node_00_Tutorial/Node00_Tutorial_Start.tscn")
 
 func _on_Quit_pressed():
 	get_tree().quit()
+
+func _on_Load_Game_pressed():
+	get_tree().change_scene("res://GUI/Load Menu/Load Menu.tscn");
