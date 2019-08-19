@@ -26,6 +26,7 @@ MSG="*res://addons/MSG_System/MSG_Parser.tscn"
 MSG_Options="*res://addons/MSG_System/MSG_Options.tscn"
 MSG_Bubble="*res://addons/MSG_System/MSG_Bubble.tscn"
 MSG_Box="*res://addons/MSG_System/MSG_Box.tscn"
+global_signals="*res://globalFiles/global_signals.gd"
 
 [display]
 

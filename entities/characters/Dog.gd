@@ -10,17 +10,9 @@ var endPosition;
 var speed = 200;
 var path = [];
 
-export (Texture) var face;
-
-export (Color) var color; # Color of the text.
-
-export (float, 0.1, 1.9) var voice_pitch # How High / Low the Voice is.
-
-export (String, FILE) var interaction_script # A .json dialogue file.
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass; 
 
 func start(pos):
 	position = pos;
@@ -56,9 +48,9 @@ func move(pos):
 	endPosition = pos;
 	$AnimatedSprite.play("run");
 	if(endPosition.x < position.x):
-		$AnimatedSprite.flip_h = true;
-	elif(endPosition.x > position.x):
 		$AnimatedSprite.flip_h = false;
+	elif(endPosition.x > position.x):
+		$AnimatedSprite.flip_h = true;
 
 ## Calculates a new path using the available Navigation 2D node. The startPosition and endPosition are updated every frame on the process function.
 
@@ -67,6 +59,3 @@ func _update_path():
 	path = Array(p) # PoolVector2Array too complex to use, convert to regular array
 	path.invert()
 	set_process(true)
-
-func talk(script): 
-	MSG.start_dialogue(script, self);
