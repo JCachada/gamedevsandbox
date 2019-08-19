@@ -63,5 +63,9 @@ func _on_SonCutsceneActivation_body_entered(body):
 		$PlayerChild.move($ChildEndPosition.position);
 
 func _on_PlayerChild_movement_ended():
-	$Player/Camera2D2.snap_to_player();
-	$Player.canMove = true;
+	$AnimationPlayer.play("Fade Out Kid");
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if(anim_name == "Fade Out Kid"):
+		$Player/Camera2D2.snap_to_player();
+		$Player.canMove = true;
