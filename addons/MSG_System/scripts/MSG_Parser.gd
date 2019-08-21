@@ -7,6 +7,8 @@ extends Node
 ##############################
 # SETTINGS
 
+var can_move_after_end = true; # If this variable is true, the player will be able to move after the end of the dialogue. False is used mostly for cutscenes.
+
 var language = "ENG"
 
 var dialogue_next_input = "dialogue_next"
@@ -80,8 +82,8 @@ func find_start():
 ########################################################################################
 ### MESSAGE SYSTEM
 
-func start_dialogue(json_path, interacted_object=null):
-
+func start_dialogue(can_move, json_path, interacted_object=null):
+	can_move_after_end = can_move;
 	interacted_character = interacted_object
 	current_json_path = json_path
 	load_data(json_path)
@@ -267,7 +269,8 @@ func update_text(text, any_choices):
 func end():
 	MSG_Bubble.hide()
 	MSG_Box.hide()
-	emit_signal("dialogue_ended");
+	if(can_move_after_end):
+		emit_signal("dialogue_ended");
 
 ########################################################################################
 # CHOICES

@@ -69,4 +69,4 @@ func _update_path():
 	set_process(true)
 
 func talk(script): 
-	MSG.start_dialogue(script, self);
+	MSG.start_dialogue(false, script, self);

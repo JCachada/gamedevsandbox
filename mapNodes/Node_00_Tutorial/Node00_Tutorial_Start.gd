@@ -11,14 +11,21 @@ func _ready():
 # warning-ignore:return_value_discarded
 	global_signals.connect("cutscene_dialogue_ended", self, "_on_PlayerChild_cutscene_dialogue_ended");
 # warning-ignore:return_value_discarded
-	MSG.connect("dialogue_ended", $Player, "on_dialogue_ended");
 	player_variables.currentScene = "res://mapNodes/Node_00_Tutorial/Node00_Tutorial_Start.tscn";
+	MSG.connect("dialogue_ended", $Player, "on_dialogue_ended");
 	$TalkPromptArea/TalkPromptSprite.hide();
 	$MovementPromptArea.hide();
 	$PlayerHome/EnterHouseArea/TalkPrompt.hide();
 	$Player.start($PlayerStartPosition.position, false);
 	$PlayerChild.start($ChildStartPosition.position);
 	$Dog.start($DogStartPosition.position);
+	
+	## If it's not the player's first time in the node, remove the kid and the dog.
+	
+	if (player_variables.kidCutscenePlayed):
+		$PlayerChild.queue_free();
+		$Dog.queue_free();
+		
 	$AnimationPlayer.play("Fade In");
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -74,8 +81,18 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if(anim_name == "Fade Out Kid and Dog"):
 		$Player/Camera2D2.go_to_player();
 		$Player.canMove = true;
+		player_variables.kidCutscenePlayed = true;
 
 func _on_PlayerChild_cutscene_dialogue_ended():
 	$Player/Camera2D2.follow($PlayerChild);
 	$Dog.move($ChildEndPosition.position);
 	$PlayerChild.move($ChildEndPosition.position);
+
+func _on_ElderCoupleInteraction_body_entered(body):
+	if(body == $Player):
+		$Player.canInteract = true;
+		$Player.interactable = $Elder;
+
+func _on_Elder_elder_dialogue_ended():
+	$Player.canMove = true;
+	$Player.canTalk = true;

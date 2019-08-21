@@ -15,7 +15,7 @@ func _ready():
 	pass # Replace with function body.
 
 func talk(): 
-	MSG.start_dialogue(interaction_script, self);
+	MSG.start_dialogue(true, interaction_script, self);
 
 func _on_WifeInteraction_body_entered(body):
 	if(body == player):

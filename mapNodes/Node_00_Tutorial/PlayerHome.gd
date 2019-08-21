@@ -7,5 +7,4 @@ signal interaction_ended;
 # var b = "text"
 
 func talk(): ## This function is used to enter the house. 
-	emit_signal("interaction_ended");
-	pass;
+	get_tree().change_scene("res://mapNodes/Node_00_Tutorial/PlayerHomeInterior.tscn");

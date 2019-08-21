@@ -85,7 +85,7 @@ func _on_SaveConfirmation_confirmed():
 
 func _on_PauseMenu_game_saved():
 	$"Game Saved Feedback".show();
-	$"Game Saved Feedback/Hide Feedback".start();
+	$"Hide Feedback".start();
 
 
 func _on_Hide_Feedback_timeout():

@@ -8,6 +8,11 @@ var playerHealth = 100; # The health of the player character.
 var kickedChest = false; 
 var counter = 0;
 
+## Node 00 Variables:
+
+var talkedToElders = false;
+var kidCutscenePlayed = false;
+
 func save(fileName):
 	## Create the dictionary with the data we want to save.
 	var save_dictionary = {
@@ -15,8 +20,14 @@ func save(fileName):
 		"filePath": "user://savegame" + counter as String + ".save",
 		"currentScene": currentScene,
 		"kickedChest": kickedChest,
-		"playerHealth": playerHealth
+		"playerHealth": playerHealth,
+		
 		## Story / Scene Events Artifacts
+		
+		## Node00_Tutorial
+		
+		"talkedToElders": talkedToElders,
+		"kidCutscenePlayed": kidCutscenePlayed
 	}
 	## Write the data to a file.
 	var saved_game = File.new();
