@@ -20,7 +20,8 @@ export (String, FILE) var interaction_script # A .json dialogue file.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	set_process(false);
+	$AnimatedSprite.play("idle");
 
 func start(pos):
 	position = pos;
@@ -59,6 +60,7 @@ func move(pos):
 		$AnimatedSprite.flip_h = true;
 	elif(endPosition.x > position.x):
 		$AnimatedSprite.flip_h = false;
+	set_process(true);
 
 ## Calculates a new path using the available Navigation 2D node. The startPosition and endPosition are updated every frame on the process function.
 

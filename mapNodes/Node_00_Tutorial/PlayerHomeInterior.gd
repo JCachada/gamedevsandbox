@@ -11,7 +11,16 @@ func _ready():
 	MSG.connect("dialogue_ended", $Player, "on_dialogue_ended");
 	player_variables.currentScene = "res://mapNodes/Node_00_Tutorial/PlayerHomeInterior.tscn";
 	$Player.start($PlayerStartPosition.position, false);
+	$Player/IdleAnimation.play("idle");
+	$Player.canMove = false;
+	$StartPause.start();
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+func _on_StartPause_timeout():
+	$Player/Camera2D.follow($PlayerWife);
+
+func _on_Camera2D_following_wife():
+	$PlayerWife.talk();

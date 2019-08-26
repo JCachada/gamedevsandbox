@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://mapNodes/Node_00_Tutorial/PlayerHomeInterior.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/Buildings/Interiors/INTERIOR_Floor.png" type="Texture" id=2]
@@ -25,7 +25,10 @@
 [ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_Light.png" type="Texture" id=23]
 [ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_InsideBed.png" type="Texture" id=24]
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=25]
-[ext_resource path="res://entities/characters/PlayerWife.tscn" type="PackedScene" id=26]
+[ext_resource path="res://mapNodes/Node_00_Tutorial/Camera2D.gd" type="Script" id=26]
+[ext_resource path="res://entities/characters/PlayerWife.tscn" type="PackedScene" id=27]
+[ext_resource path="res://entities/characters/PlayerChild.tscn" type="PackedScene" id=28]
+[ext_resource path="res://entities/characters/Dog.tscn" type="PackedScene" id=29]
 
 [sub_resource type="TileSet" id=1]
 0/name = "INTERIOR_Floor.png 0"
@@ -212,8 +215,10 @@ extents = Vector2( 2.07861, 117.071 )
 script = ExtResource( 1 )
 
 [node name="BlackBackground" type="ColorRect" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
+margin_left = -1470.0
+margin_top = -940.0
+margin_right = 3640.0
+margin_bottom = 2030.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_lock_": true
@@ -242,7 +247,7 @@ __meta__ = {
 [node name="AnimatedTree" type="AnimatedSprite" parent="."]
 position = Vector2( 1372.22, 300.739 )
 frames = SubResource( 2 )
-frame = 12
+frame = 11
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -377,7 +382,22 @@ texture = ExtResource( 24 )
 polygon = PoolVector2Array( -13.1002, -21.715, -13.1002, -16.9471, -10.8298, -16.9471, -10.8298, -5.14099, -13.3273, -5.14099, -13.3273, -1.16779, -11.3974, -1.16779, -11.1703, 22.1039, -13.3273, 22.1039, -11.5109, 25.8501, -11.1703, 25.5096, -10.9433, 31.9577, -10.0352, 31.9577, -9.92163, 28.6656, 9.49042, 28.7792, 10.058, 31.5036, 10.8527, 31.9577, 10.9662, 25.033, 12.1014, 24.5789, 12.1014, 23.7843, 13.123, 23.1031, 13.0095, 21.7409, 11.1932, 21.7409, 11.1932, -0.971939, 13.0095, -0.971939, 13.0095, -5.05869, 11.6473, -5.28572, 11.0797, -16.9783, 13.123, -16.9783, 12.896, -21.9733 )
 
 [node name="Player" parent="." instance=ExtResource( 25 )]
+editor/display_folded = true
 scale = Vector2( 0.75, 0.75 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = -500
+limit_top = -500
+limit_right = 2480
+limit_bottom = 1580
+limit_smoothed = true
+smoothing_speed = 10.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+script = ExtResource( 26 )
 
 [node name="PlayerStartPosition" type="Position2D" parent="."]
 position = Vector2( 960, 915.2 )
@@ -385,7 +405,18 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PlayerWife" parent="." instance=ExtResource( 26 )]
+[node name="PlayerWife" parent="." instance=ExtResource( 27 )]
 position = Vector2( 1338.22, 333.6 )
 scale = Vector2( -1, 1 )
 interaction_script = "res://mapNodes/Node_00_Tutorial/WifeDialogue.json"
+
+[node name="StartPause" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="PlayerChild" parent="." instance=ExtResource( 28 )]
+position = Vector2( 1216, 390 )
+
+[node name="Dog" parent="." instance=ExtResource( 29 )]
+position = Vector2( 1271, 400 )
+[connection signal="following_wife" from="Player/Camera2D" to="." method="_on_Camera2D_following_wife"]
+[connection signal="timeout" from="StartPause" to="." method="_on_StartPause_timeout"]

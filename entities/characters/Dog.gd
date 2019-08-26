@@ -12,7 +12,8 @@ var path = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass; 
+	set_process(false);
+	$AnimatedSprite.play("idle");
 
 func start(pos):
 	position = pos;
@@ -51,6 +52,7 @@ func move(pos):
 		$AnimatedSprite.flip_h = false;
 	elif(endPosition.x > position.x):
 		$AnimatedSprite.flip_h = true;
+	set_process(true);
 
 ## Calculates a new path using the available Navigation 2D node. The startPosition and endPosition are updated every frame on the process function.
 
