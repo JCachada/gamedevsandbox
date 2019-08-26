@@ -14,8 +14,14 @@ var canInteract = false; # This becomes true when the player goes within the zon
 var canTalk = true; # This becomes false if the player is already in dialogue.
 var interactable; # This is the node with which the player can interact. It's often empty, but it gets assigned when the player walks in range of an interactable object.
 var inventory = [];
+var targetPosition; # To use with the move() function, and move the player without player input.
+var path = []; # To use with the move() function, and move the player without player input.
+var moving = false; # If true, the player ignores all input.
+var myDelta; # Stores the process function's delta so it can be used in other functions.
+onready var navigation = get_node("../Navigation2D");
 signal update_Healthbar;
 signal death;
+signal movement_ended; # Used to signal that the player finished an ordered movement.
 
 func start(pos, isSceneCombat):
 	inCombatScene = isSceneCombat;
@@ -37,7 +43,11 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 func _process(delta):
-	if canMove == true:
+	myDelta = delta;
+	if moving: 
+		_update_path();
+		process_path();
+	if canMove == true && !moving:
 		moveAndAttack(delta);
 
 func _input(event):
@@ -236,3 +246,39 @@ func on_dialogue_ended():
 func _on_interaction_ended():
 	canMove = true;
 	canTalk = true;
+
+func move(pos):
+	moving = true;
+	targetPosition = pos;
+	$AnimatedSprite.play("run");
+	if(targetPosition.x > position.x):
+		$AnimatedSprite.flip_h = false;
+	elif(targetPosition.x < position.x):
+		$AnimatedSprite.flip_h = true;
+
+## Calculates a new path using the available Navigation 2D node. The startPosition and endPosition are updated every frame on the process function.
+func _update_path():
+	var p = navigation.get_simple_path(position, targetPosition, true)
+	path = Array(p) # PoolVector2Array too complex to use, convert to regular array
+	path.invert();
+
+# Goes through the existing movement path and moves the player to the target position.
+func process_path():
+	if path.size() > 1:
+		var to_walk = myDelta * speed
+		while to_walk > 0 and path.size() >= 2:
+			var pfrom = path[path.size() - 1]
+			var pto = path[path.size() - 2]
+			var d = pfrom.distance_to(pto)
+			if d <= to_walk:
+				path.remove(path.size() - 1)
+				to_walk -= d
+			else:
+				path[path.size() - 1] = pfrom.linear_interpolate(pto, to_walk/d)
+				to_walk = 0
+		
+		var atpos = path[path.size() - 1]
+		position = atpos
+	if path.size() < 2:
+		path = []
+		emit_signal("movement_ended");

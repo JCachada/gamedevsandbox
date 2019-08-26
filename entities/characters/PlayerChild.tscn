@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://entities/characters/PlayerChild.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/Characters/Son/PLACEHOLDER_Son_Idle_00.png" type="Texture" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://assets/art/Characters/Son/PLACEHOLDER_Son_Run_05.png" type="Texture" id=22]
 [ext_resource path="res://assets/art/Characters/Son/PLACEHOLDER_Son_Run_06.png" type="Texture" id=23]
 [ext_resource path="res://assets/art/Characters/Son/PLACEHOLDER_Son_Run_07.png" type="Texture" id=24]
+[ext_resource path="res://assets/art/GUI/Dialogue/PLACEHOLDER_What_Exclamation_Mark.png" type="Texture" id=25]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -43,6 +44,13 @@ script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "run"
-frame = 1
+animation = "idle"
 playing = true
+
+[node name="What" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0.630249, -57.3526 )
+texture = ExtResource( 25 )
+
+[node name="WhatTimer" type="Timer" parent="What"]
+[connection signal="timeout" from="What/WhatTimer" to="." method="_on_WhatTimer_timeout"]

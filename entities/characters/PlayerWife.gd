@@ -14,6 +14,8 @@ export (float, 0.1, 1.9) var voice_pitch # How High / Low the Voice is.
 
 export (String, FILE) var interaction_script # A .json dialogue file.
 
+export (String, FILE) var interaction_script_2 # A second .json dialogue file slot.
+
 onready var player = get_node('../Player')
 
 # Called when the node enters the scene tree for the first time.
@@ -42,8 +44,8 @@ func cast(flipped):
 	$AttackAnimation.show();
 	$AttackAnimation.play("attack");
 
-func talk(): 
-	MSG.start_dialogue(true, interaction_script, self);
+func talk(script): 
+	MSG.start_dialogue(true, script, self);
 
 func _on_WifeInteraction_body_entered(body):
 	if(body == player):

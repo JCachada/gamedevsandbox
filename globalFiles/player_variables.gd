@@ -12,6 +12,7 @@ var counter = 0;
 
 var talkedToElders = false;
 var kidCutscenePlayed = false;
+var sawCutsceneInsideHome = false;
 
 func save(fileName):
 	## Create the dictionary with the data we want to save.
@@ -27,7 +28,8 @@ func save(fileName):
 		## Node00_Tutorial
 		
 		"talkedToElders": talkedToElders,
-		"kidCutscenePlayed": kidCutscenePlayed
+		"kidCutscenePlayed": kidCutscenePlayed,
+		"sawCutsceneInsideHome": sawCutsceneInsideHome
 	}
 	## Write the data to a file.
 	var saved_game = File.new();

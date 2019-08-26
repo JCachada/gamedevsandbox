@@ -1,0 +1,215 @@
+[
+    {
+        "characters": [
+            "Player",
+            "PlayerWife",
+            "PlayerChild",
+            "Dog"
+        ],
+        "connections": [
+            {
+                "from": "3971143",
+                "from_port": 0,
+                "to": "9969545",
+                "to_port": 0
+            },
+            {
+                "from": "3971143",
+                "from_port": 1,
+                "to": "29685",
+                "to_port": 0
+            },
+            {
+                "from": "29685",
+                "from_port": 0,
+                "to": "6912704",
+                "to_port": 0
+            },
+            {
+                "from": "6912704",
+                "from_port": 0,
+                "to": "494854",
+                "to_port": 0
+            },
+            {
+                "from": "494854",
+                "from_port": 0,
+                "to": "8807409",
+                "to_port": 0
+            },
+            {
+                "from": "8807409",
+                "from_port": 0,
+                "to": "9232344",
+                "to_port": 0
+            },
+            {
+                "from": "9232344",
+                "from_port": 0,
+                "to": "7870618",
+                "to_port": 0
+            },
+            {
+                "from": "START",
+                "from_port": 0,
+                "to": "3971143",
+                "to_port": 0
+            }
+        ],
+        "editor_version": "2.1",
+        "file_name": "WifeDialogueInsidePlayerHomePart1",
+        "languages": [
+            "ENG"
+        ],
+        "nodes": [
+            {
+                "filename": "res://Nodes/Start.tscn",
+                "next": "3971143",
+                "node_name": "START",
+                "node_type": "start",
+                "offset": [
+                    0,
+                    0
+                ]
+            },
+            {
+                "branches": {
+                    "False": "29685",
+                    "True": "9969545"
+                },
+                "filename": "res://Nodes/Condition Branch.tscn",
+                "node_name": "3971143",
+                "node_type": "condition_branch",
+                "offset": [
+                    160,
+                    -40
+                ],
+                "text": "player_variables.sawCutsceneInsideHome"
+            },
+            {
+                "character": [
+                    "PlayerWife",
+                    1
+                ],
+                "filename": "res://Nodes/Show Message.tscn",
+                "is_box": false,
+                "next": null,
+                "node_name": "9969545",
+                "node_type": "show_message",
+                "object_path": "",
+                "offset": [
+                    620,
+                    -120
+                ],
+                "slide_camera": true,
+                "speaker_type": 0,
+                "text": {
+                    "ENG": "Please don't take too long."
+                }
+            },
+            {
+                "character": [
+                    "PlayerWife",
+                    1
+                ],
+                "filename": "res://Nodes/Show Message.tscn",
+                "is_box": false,
+                "next": "6912704",
+                "node_name": "29685",
+                "node_type": "show_message",
+                "object_path": "",
+                "offset": [
+                    360,
+                    200
+                ],
+                "slide_camera": true,
+                "speaker_type": 0,
+                "text": {
+                    "ENG": "... And then you get Sly into trouble! You know Mrs. Maisel doesn't like it when you get him all worked up. "
+                }
+            },
+            {
+                "character": [
+                    "PlayerChild",
+                    2
+                ],
+                "filename": "res://Nodes/Show Message.tscn",
+                "is_box": false,
+                "next": "494854",
+                "node_name": "6912704",
+                "node_type": "show_message",
+                "object_path": "",
+                "offset": [
+                    800,
+                    200
+                ],
+                "slide_camera": true,
+                "speaker_type": 0,
+                "text": {
+                    "ENG": "It's not like I told him to eat her socks!"
+                }
+            },
+            {
+                "character": [
+                    "PlayerWife",
+                    1
+                ],
+                "filename": "res://Nodes/Show Message.tscn",
+                "is_box": false,
+                "next": "8807409",
+                "node_name": "494854",
+                "node_type": "show_message",
+                "object_path": "",
+                "offset": [
+                    1220,
+                    200
+                ],
+                "slide_camera": true,
+                "speaker_type": 0,
+                "text": {
+                    "ENG": "Yes, I'm sure it's just a baffling coincidence that he only misbehaves when he's with you."
+                }
+            },
+            {
+                "filename": "res://Nodes/Execute.tscn",
+                "next": "9232344",
+                "node_name": "8807409",
+                "node_type": "execute",
+                "offset": [
+                    1620,
+                    300
+                ],
+                "text": "global_signals.emit_signal(\"cutscene_dialogue_what\")"
+            },
+            {
+                "filename": "res://Nodes/Execute.tscn",
+                "next": null,
+                "node_name": "7870618",
+                "node_type": "execute",
+                "offset": [
+                    2320,
+                    280
+                ],
+                "text": "global_signals.emit_signal(\"cutscene_step_1\")"
+            },
+            {
+                "filename": "res://Nodes/Wait.tscn",
+                "next": "7870618",
+                "node_name": "9232344",
+                "node_type": "wait",
+                "offset": [
+                    2140,
+                    280
+                ],
+                "time": 1
+            }
+        ],
+        "selected_language": "ENG",
+        "variables": {
+            "saw_cutscene": {
+                "type": 2,
+                "value": false
+            }
+        }
+    }
+]

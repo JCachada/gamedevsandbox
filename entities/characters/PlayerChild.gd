@@ -20,6 +20,7 @@ export (String, FILE) var interaction_script # A .json dialogue file.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$What.hide();
 	set_process(false);
 	$AnimatedSprite.play("idle");
 
@@ -72,3 +73,10 @@ func _update_path():
 
 func talk(script): 
 	MSG.start_dialogue(false, script, self);
+
+#This functions spawns the ! used in dialogue above the character.
+func what():
+	$What.show();
+
+func _on_WhatTimer_timeout():
+	$What.hide();
