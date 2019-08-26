@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://mapNodes/Node_00_Tutorial/PlayerHomeInterior.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/Buildings/Interiors/INTERIOR_Floor.png" type="Texture" id=2]
@@ -25,8 +25,7 @@
 [ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_Light.png" type="Texture" id=23]
 [ext_resource path="res://assets/art/MapNodes/Node_00_Tutorial/PLACEHOLDER_InsideBed.png" type="Texture" id=24]
 [ext_resource path="res://entities/Player.tscn" type="PackedScene" id=25]
-[ext_resource path="res://assets/art/Characters/Wife/NONCOMMERCIAL_PLACEHOLDER_Wife.png" type="Texture" id=26]
-[ext_resource path="res://mapNodes/Node_00_Tutorial/Wife.gd" type="Script" id=27]
+[ext_resource path="res://entities/characters/PlayerWife.tscn" type="PackedScene" id=26]
 
 [sub_resource type="TileSet" id=1]
 0/name = "INTERIOR_Floor.png 0"
@@ -207,9 +206,6 @@ extents = Vector2( 2.78259, 119.52 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 2.07861, 117.071 )
 
-[sub_resource type="CircleShape2D" id=11]
-radius = 188.68
-
 [node name="PlayerHomeInterior" type="Node2D" groups=[
 "level_root",
 ]]
@@ -246,7 +242,7 @@ __meta__ = {
 [node name="AnimatedTree" type="AnimatedSprite" parent="."]
 position = Vector2( 1372.22, 300.739 )
 frames = SubResource( 2 )
-frame = 7
+frame = 12
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -389,34 +385,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Wife" type="Sprite" parent="."]
-position = Vector2( 1310, 330 )
-scale = Vector2( -0.5, 0.5 )
-texture = ExtResource( 26 )
-script = ExtResource( 27 )
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="PlayerWife" parent="." instance=ExtResource( 26 )]
+position = Vector2( 1338.22, 333.6 )
+scale = Vector2( -1, 1 )
 interaction_script = "res://mapNodes/Node_00_Tutorial/WifeDialogue.json"
-
-[node name="WifeCollision" type="StaticBody2D" parent="Wife"]
-editor/display_folded = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wife/WifeCollision"]
-polygon = PoolVector2Array( 60, 60, 65.3689, 62.4806, 70.2866, 52.6452, 67.8279, 49.3667, 65.7788, 42.4, 72.3357, 46.9078, 72.7456, 39.9411, 76.8438, 37.4822, 73.5652, 14.9427, 64.5493, 4.69751, 69.877, -2.67908, 59.6316, -13.3341, 55.1238, -10.4655, 54.7139, -16.6125, 48.9766, -20.7106, 51.8452, -23.1695, 54.7139, -20.7106, 57.1729, -25.6284, 63.7297, -23.1695, 61.271, -14.5635, 69.467, -10.8752, 73.5652, -18.2518, 66.5984, -24.3989, 67.8279, -27.6774, 60.0415, -35.4638, 66.5984, -37.9226, 64.9592, -45.709, 66.1885, -51.0365, 65.7788, -58.0033, 55.5334, -53.9052, 50.6157, -64.97, 31.7646, -63.3308, 23.9783, -57.1837, 16.6016, -61.2817, 12.0938, -56.3641, 7.17603, -55.1346, 6.76636, -49.8071, 11.6841, -45.2992, 5.53687, -30.5461, 8.40552, -26.8578, 8.40552, -25.2186, 1.43872, -18.6616, 6.35645, -12.5145, 13.3232, -16.2028, 12.9133, -23.1695, 16.1919, -27.2676, 21.1096, -24.3989, 16.1919, -14.5635, 5.12695, -4.3183, 1.43872, 1.41907, -7.57715, -0.630005, -10.4458, 3.87793, -7.98682, 7.56616, -55.5247, 32.5645, -61.262, 32.9744, -78.0642, 50.1863, -55.5247, 52.6452, -49.3777, 46.498, -1.42993, 21.9095, -10.4458, 43.2196, -4.7085, 39.5313, 8.40552, 43.2196, 3.07788, 60.0217, 9.2251, 64.1199, 15.782, 60.4316, 17.0115, 47.7275, 21.1096, 42.4, 55.9434, 41.9901, 59.2219, 50.5961, 55.5334, 59.2021, 58.4023, 64.1199, 65.3689, 64.5297 )
-
-[node name="WifeInteraction" type="Area2D" parent="Wife"]
-editor/display_folded = true
-collision_layer = 32
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="WifeInteractionArea" type="CollisionShape2D" parent="Wife/WifeInteraction"]
-position = Vector2( 20, 0 )
-shape = SubResource( 11 )
-[connection signal="body_entered" from="Wife/WifeInteraction" to="Wife" method="_on_WifeInteraction_body_entered"]
-[connection signal="body_exited" from="Wife/WifeInteraction" to="Wife" method="_on_WifeInteraction_body_exited"]

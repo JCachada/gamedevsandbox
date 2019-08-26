@@ -1,0 +1,59 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://entities/characters/PlayerWife.gd" type="Script" id=1]
+[ext_resource path="res://assets/art/Characters/Wife/PLACEHOLDER_Wife_Idle00.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/Characters/Wife/PLACEHOLDER_Wife_Idle01.png" type="Texture" id=3]
+[ext_resource path="res://assets/art/Characters/Wife/PLACEHOLDER_Wife_Idle02.png" type="Texture" id=4]
+[ext_resource path="res://assets/art/Characters/Wife/PLACEHOLDER_Wife_Idle03.png" type="Texture" id=5]
+[ext_resource path="res://assets/art/Characters/Wife/PLACEHOLDER_Wife_Attack00.png" type="Texture" id=6]
+[ext_resource path="res://assets/art/Characters/Wife/PLACEHOLDER_Wife_Attack01.png" type="Texture" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": false,
+"name": "attack",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 50.0
+
+[node name="PlayerWife" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="IdleAnimation" type="AnimatedSprite" parent="."]
+visible = false
+frames = SubResource( 1 )
+animation = "idle"
+frame = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="IdleCollisionBox" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -10, -40, 2.0459, -37.3725, 4.44086, -31.7843, 2.44505, -26.9944, 4.44086, -21.007, 6.43665, -14.2213, 11.6257, -14.6205, 10.8274, -9.03224, 8.83159, -9.4314, 12.0249, 2.14419, 6.8358, 4.53915, 5.23917, 19.7072, 2.84422, 29.287, 1.64674, 34.8752, 5.23917, 38.8668, 0.848419, 40.4634, -5.13895, 38.0684, -5.93727, 29.6861, -4.34064, 19.7072, -4.34064, 14.5181, -5.93727, 6.53493, -12.723, -0.649918, -11.5255, -5.43981, -5.53812, -14.2213, -10.328, -22.6036, -10.7272, -26.5952, -7.13474, -25.7969, -5.13895, -26.9944, -10.7272, -36.5742 )
+
+[node name="AttackCollisionBox" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 2.66633, -27.2301, 8.67622, -26.6578, 12.8259, -31.3798, 16.5463, -30.9505, 16.4032, -27.5163, 17.1187, -25.2268, 14.3999, -24.3683, 9.39169, -21.7926, 4.95581, -21.5064 )
+
+[node name="AttackAnimation" type="AnimatedSprite" parent="."]
+position = Vector2( 2.7941, 0 )
+frames = SubResource( 2 )
+animation = "attack"
+frame = 1
+
+[node name="WifeInteraction" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WifeInteraction"]
+shape = SubResource( 3 )
+[connection signal="body_entered" from="WifeInteraction" to="." method="_on_WifeInteraction_body_entered"]
+[connection signal="body_exited" from="WifeInteraction" to="." method="_on_WifeInteraction_body_exited"]

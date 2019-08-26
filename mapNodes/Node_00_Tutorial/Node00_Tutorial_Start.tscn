@@ -138,7 +138,7 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=11]
 radius = 160.312
 
-[sub_resource type="SpriteFrames" id=14]
+[sub_resource type="SpriteFrames" id=12]
 animations = [ {
 "frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
 "loop": true,
@@ -154,10 +154,10 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=15]
+[sub_resource type="CircleShape2D" id=14]
 radius = 110.05
 
-[sub_resource type="CircleShape2D" id=12]
+[sub_resource type="CircleShape2D" id=15]
 radius = 120.004
 
 [node name="Node00_Tutorial_Start" type="Node2D" groups=[
@@ -287,6 +287,7 @@ collision_layer = 32
 position = Vector2( -710, 50 )
 scale = Vector2( -0.15, 0.15 )
 frames = SubResource( 10 )
+frame = 1
 playing = true
 script = ExtResource( 10 )
 interaction_script = "res://mapNodes/Node_00_Tutorial/TutorialKnightDialogue.json"
@@ -310,9 +311,9 @@ __meta__ = {
 
 [node name="ElderWife" type="AnimatedSprite" parent="."]
 position = Vector2( 3760, 900 )
-frames = SubResource( 14 )
+frames = SubResource( 12 )
 animation = "idle"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Elder" type="AnimatedSprite" parent="."]
@@ -320,6 +321,7 @@ editor/display_folded = true
 position = Vector2( 3820, 900 )
 frames = SubResource( 13 )
 animation = "idle"
+frame = 1
 playing = true
 script = ExtResource( 16 )
 interaction_script = "res://mapNodes/Node_00_Tutorial/ElderCoupleDialogue.json"
@@ -328,7 +330,7 @@ interaction_script = "res://mapNodes/Node_00_Tutorial/ElderCoupleDialogue.json"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Elder/ElderCoupleInteraction"]
 position = Vector2( -40, -6.69812 )
-shape = SubResource( 15 )
+shape = SubResource( 14 )
 
 [node name="Player" parent="." instance=ExtResource( 17 )]
 editor/display_folded = true
@@ -430,7 +432,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerChild/SonCutsceneActivation"]
-shape = SubResource( 12 )
+shape = SubResource( 15 )
 __meta__ = {
 "_edit_lock_": true
 }
