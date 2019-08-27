@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://mapNodes/Node_00_Tutorial/PlayerHomeInterior.gd" type="Script" id=1]
 [ext_resource path="res://assets/art/Buildings/Interiors/INTERIOR_Floor.png" type="Texture" id=2]
@@ -236,6 +236,51 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="Animation" id=12]
+resource_name = "Stayed With Wife"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 3, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Player:canMove")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="NavigationPolygon" id=13]
+vertices = PoolVector2Array( 1805.68, 352.575, 1806.97, 880.345, 1119.97, 877.748, 1120, 680, 1030, 1090, 880, 1090, 882.314, 580.942, 1029.06, 664.764, 1052.44, 574.449, 1120, 600, 1120, 350 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 5, 6, 7 ), PoolIntArray( 7, 6, 8, 9, 3 ), PoolIntArray( 0, 3, 9 ), PoolIntArray( 10, 0, 9 ) ]
+outlines = [ PoolVector2Array( 1120, 350, 1120, 600, 1052.44, 574.449, 882.314, 580.942, 880, 1090, 1030, 1090, 1029.06, 664.764, 1120, 680, 1119.97, 877.748, 1806.97, 880.345, 1805.68, 352.575 ) ]
+
 [node name="PlayerHomeInterior" type="Node2D" groups=[
 "level_root",
 ]]
@@ -274,7 +319,7 @@ __meta__ = {
 [node name="AnimatedTree" type="AnimatedSprite" parent="."]
 position = Vector2( 1372.22, 300.739 )
 frames = SubResource( 2 )
-frame = 5
+frame = 2
 playing = true
 __meta__ = {
 "_edit_lock_": true
@@ -409,14 +454,15 @@ texture = ExtResource( 24 )
 polygon = PoolVector2Array( -13.1002, -21.715, -13.1002, -16.9471, -10.8298, -16.9471, -10.8298, -5.14099, -13.3273, -5.14099, -13.3273, -1.16779, -11.3974, -1.16779, -11.1703, 22.1039, -13.3273, 22.1039, -11.5109, 25.8501, -11.1703, 25.5096, -10.9433, 31.9577, -10.0352, 31.9577, -9.92163, 28.6656, 9.49042, 28.7792, 10.058, 31.5036, 10.8527, 31.9577, 10.9662, 25.033, 12.1014, 24.5789, 12.1014, 23.7843, 13.123, 23.1031, 13.0095, 21.7409, 11.1932, 21.7409, 11.1932, -0.971939, 13.0095, -0.971939, 13.0095, -5.05869, 11.6473, -5.28572, 11.0797, -16.9783, 13.123, -16.9783, 12.896, -21.9733 )
 
 [node name="Player" parent="." instance=ExtResource( 25 )]
+editor/display_folded = true
 scale = Vector2( 0.75, 0.75 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 current = true
-limit_left = -500
-limit_top = -500
-limit_right = 2480
-limit_bottom = 1580
+limit_left = 0
+limit_top = 0
+limit_right = 1920
+limit_bottom = 1080
 limit_smoothed = true
 smoothing_speed = 10.0
 drag_margin_left = 0.1
@@ -434,10 +480,15 @@ __meta__ = {
 [node name="PlayerWife" parent="." instance=ExtResource( 27 )]
 position = Vector2( 1338.22, 333.6 )
 scale = Vector2( -1, 1 )
+idle_interaction_script = "res://mapNodes/Node_00_Tutorial/WifeDialogueHomeInteriorIdle.json"
 interaction_script = "res://mapNodes/Node_00_Tutorial/WifeDialogueInsidePlayerHomePart1.json"
+interaction_script_2 = "res://mapNodes/Node_00_Tutorial/WifeDialogueInsidePlayerHomePart2.json"
+interaction_script_3 = "res://mapNodes/Node_00_Tutorial/WifeDialogueInsidePlayerHomePart3.json"
+interaction_script_4 = "res://mapNodes/Node_00_Tutorial/WifeDialogueInsidePlayerHomePart4.json"
 
 [node name="StartPause" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="PlayerChild" parent="." instance=ExtResource( 28 )]
 position = Vector2( 1220, 350 )
@@ -459,8 +510,17 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 "anims/Fade Out Kid and Dog" = SubResource( 11 )
+"anims/Stayed With Wife" = SubResource( 12 )
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+editor/display_folded = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 13 )
 [connection signal="movement_ended" from="Player" to="." method="_on_Player_movement_ended"]
-[connection signal="following_wife" from="Player/Camera2D" to="." method="_on_Camera2D_following_wife"]
 [connection signal="timeout" from="StartPause" to="." method="_on_StartPause_timeout"]
 [connection signal="movement_ended" from="PlayerChild" to="." method="_on_PlayerChild_movement_ended"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -5,15 +5,16 @@ enum {
 	MODE_FOLLOW
 }
 
-const SNAP_DISTANCE = 5
+const SNAP_DISTANCE = 0.05
+const MIN_DISTANCE = 0.5
+const MAX_DISTANCE = 2.5
 
 signal following_wife;
-export var speed = 1
+export var speed = 2.0
 
 var anchor   # To bring the camera back once it needs to. (Transform)
 var target   # Node to follow or zoom on. (Node)
 var mode     # Currently active mode. (int)
-var targetAnchor # To check if the following motion is done.
 var signals = true;
 
 func follow(target_node):
@@ -21,7 +22,6 @@ func follow(target_node):
 		anchor = transform
 		set_process(true)
 	target   = target_node
-	targetAnchor = target.transform;
 	mode     = MODE_FOLLOW
 	
 func go_to_player():
@@ -38,18 +38,14 @@ func _ready():
 	mode = MODE_PLAYER
 	anchor = transform
 
-func _process(delta): 
-	match mode:
-		MODE_PLAYER:
-			var newTransform = transform.interpolate_with(anchor, delta * speed)
-			if newTransform.origin.distance_to(anchor.origin) < SNAP_DISTANCE:
-				transform = anchor
-				set_process(false)
-			else:
-				transform = newTransform
-		MODE_FOLLOW:
-			var targetTransform = target.global_transform
-			global_transform = global_transform.interpolate_with(targetTransform, delta * speed)
-			if get_global_transform().origin.distance_to(targetAnchor.origin) < SNAP_DISTANCE && signals:
-				emit_signal("following_wife");
-				signals = false;
+func _process(delta): match mode:
+	MODE_PLAYER:
+		var newTransform = transform.interpolate_with(anchor, delta * speed)
+		if newTransform.origin.distance_to(anchor.origin) < SNAP_DISTANCE:
+			transform = anchor
+			set_process(false)
+		else:
+			transform = newTransform
+	MODE_FOLLOW:
+		var targetTransform = target.global_transform
+		global_transform = global_transform.interpolate_with(targetTransform, delta * speed)

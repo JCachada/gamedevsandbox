@@ -76,6 +76,7 @@ func talk(script):
 
 #This functions spawns the ! used in dialogue above the character.
 func what():
+	$What/WhatTimer.start();
 	$What.show();
 
 func _on_WhatTimer_timeout():

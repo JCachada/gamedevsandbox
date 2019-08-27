@@ -9,7 +9,7 @@ var isAttacking; ## Tracks if the player is attacking.
 var isComboing = 0; ## Tracks if the player is comboing. 0 means "isn't comboing", 1 means "started comboing", 2 means "last combo stage."
 var canDamage = true;
 var velocity; # The player's movement vector.
-var canMove = true; # The player can always move unless he's in dialogue / interaction.
+export var canMove = true; # The player can always move unless he's in dialogue / interaction.
 var canInteract = false; # This becomes true when the player goes within the zone of an interacteable object. These Area2D will be marked with "Interaction" labels.
 var canTalk = true; # This becomes false if the player is already in dialogue.
 var interactable; # This is the node with which the player can interact. It's often empty, but it gets assigned when the player walks in range of an interactable object.
@@ -250,11 +250,11 @@ func _on_interaction_ended():
 func move(pos):
 	moving = true;
 	targetPosition = pos;
-	$AnimatedSprite.play("run");
+	$IdleAnimation.play("run");
 	if(targetPosition.x > position.x):
-		$AnimatedSprite.flip_h = false;
+		$IdleAnimation.flip_h = false;
 	elif(targetPosition.x < position.x):
-		$AnimatedSprite.flip_h = true;
+		$IdleAnimation.flip_h = true;
 
 ## Calculates a new path using the available Navigation 2D node. The startPosition and endPosition are updated every frame on the process function.
 func _update_path():
@@ -281,4 +281,6 @@ func process_path():
 		position = atpos
 	if path.size() < 2:
 		path = []
+		$IdleAnimation.play("idle");
+		moving = false;
 		emit_signal("movement_ended");

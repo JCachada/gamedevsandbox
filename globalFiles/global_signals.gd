@@ -8,6 +8,8 @@ signal cutscene_dialogue_ended;
 signal cutscene_dialogue_what; # Makes the ! pop up above some dialogue characters.
 signal cutscene_step_1; # Generic signal to make a cutscene move forward. Specific implementation is done on the scene's root.
 signal cutscene_step_2; # Generic signal to make a cutscene move forward. Specific implementation is done on the scene's root.
+signal cutscene_step_3; # Generic signal to make a cutscene move forward. Specific implementation is done on the scene's root.
+signal cutscene_step_4; # Generic signal to make a cutscene move forward. Specific implementation is done on the scene's root.
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
