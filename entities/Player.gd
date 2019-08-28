@@ -239,6 +239,9 @@ func die():
 	$IdleAnimation.play("death");
 	emit_signal("death");
 
+# At this point this function is outdated, and the responsibility for when to return to the player 
+# the ability to move has been moved to each scene's root.  This is to stop it from conflicting with the dialogue system.
+# This way, the player isn't able to move in the middle of cutscenes just because dialogue ended.
 func on_dialogue_ended():
 	canMove = true;
 	canTalk = true;
